@@ -1,0 +1,779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Food_searchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories_Of_Food">
+          <Key>
+            <PropertyRef Name="Categories_Of_Food_ID" />
+          </Key>
+          <Property Name="Categories_Of_Food_ID" Type="int" Nullable="false" />
+          <Property Name="Categories_Of_Food_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Combo">
+          <Key>
+            <PropertyRef Name="Combo_ID" />
+          </Key>
+          <Property Name="Combo_ID" Type="int" Nullable="false" />
+          <Property Name="Combo_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Combo_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dishes">
+          <Key>
+            <PropertyRef Name="Dishes_ID" />
+          </Key>
+          <Property Name="Dishes_ID" Type="int" Nullable="false" />
+          <Property Name="Dishes_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Dishes_Methods" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Dishes_Photo" Type="varbinary(max)" />
+          <Property Name="Dishes_Remark" Type="nvarchar" MaxLength="20" />
+          <Property Name="Dishes_Recommend_Date" Type="date" Nullable="false" />
+          <Property Name="Food_Review_Date" Type="date" />
+          <Property Name="Food_Review_Result" Type="tinyint" Nullable="false" />
+          <Property Name="Referral_User_ID" Type="varchar" MaxLength="20" />
+          <Property Name="Review_Manager_ID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dishes_Contain_Food">
+          <Key>
+            <PropertyRef Name="Dishes_ID" />
+          </Key>
+          <Property Name="Dishes_ID" Type="int" Nullable="false" />
+          <Property Name="Food_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Feedback_Article">
+          <Key>
+            <PropertyRef Name="Article_ID" />
+          </Key>
+          <Property Name="Article_ID" Type="int" Nullable="false" />
+          <Property Name="Article_Title" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Article_Text" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Article_Date" Type="date" Nullable="false" />
+          <Property Name="Article_Review_Result" Type="tinyint" Nullable="false" />
+          <Property Name="Article_User_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Article_Manager_ID" Type="varchar" MaxLength="20" />
+          <Property Name="Article_Photo" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="Food_ID" />
+          </Key>
+          <Property Name="Food_ID" Type="int" Nullable="false" />
+          <Property Name="Food_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Categories_Of_Food_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Manager_ID" />
+          </Key>
+          <Property Name="Manager_Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Manager_ID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Set_Menu_Includes_Dishes">
+          <Key>
+            <PropertyRef Name="Combo_ID" />
+          </Key>
+          <Property Name="Combo_ID" Type="int" Nullable="false" />
+          <Property Name="Dishes_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Nick_Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="User_Mail" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="User_Phone" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="User_Birth" Type="date" />
+        </EntityType>
+        <EntityType Name="User_Collect_Combo">
+          <Key>
+            <PropertyRef Name="Combo_ID" />
+          </Key>
+          <Property Name="Combo_ID" Type="int" Nullable="false" />
+          <Property Name="User_ID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_Collect_Dishes">
+          <Key>
+            <PropertyRef Name="Dishes_ID" />
+          </Key>
+          <Property Name="Dishes_ID" Type="int" Nullable="false" />
+          <Property Name="User_ID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Dishes_Contain_Food_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes_Contain_Food" Type="Self.Dishes_Contain_Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Food_ID" />
+            </Principal>
+            <Dependent Role="Dishes_Contain_Food">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_Dishes_Contain_Food">
+          <End Role="Dishes_Contain_Food" Type="Self.Dishes_Contain_Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes_Contain_Food">
+              <PropertyRef Name="Dishes_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_Manager">
+          <End Role="Manager" Type="Self.Manager" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Review_Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Referral_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Article_Manager">
+          <End Role="Manager" Type="Self.Manager" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Feedback_Article" Type="Self.Feedback_Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_ID" />
+            </Principal>
+            <Dependent Role="Feedback_Article">
+              <PropertyRef Name="Article_Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Article_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Feedback_Article" Type="Self.Feedback_Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Feedback_Article">
+              <PropertyRef Name="Article_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Food_Categories_Of_Food">
+          <End Role="Categories_Of_Food" Type="Self.Categories_Of_Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories_Of_Food">
+              <PropertyRef Name="Categories_Of_Food_ID" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="Categories_Of_Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Menu_Includes_Dishes_Combo">
+          <End Role="Combo" Type="Self.Combo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Set_Menu_Includes_Dishes" Type="Self.Set_Menu_Includes_Dishes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Combo">
+              <PropertyRef Name="Combo_ID" />
+            </Principal>
+            <Dependent Role="Set_Menu_Includes_Dishes">
+              <PropertyRef Name="Combo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Set_Menu_Includes_Dishes_Dishes">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Set_Menu_Includes_Dishes" Type="Self.Set_Menu_Includes_Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Principal>
+            <Dependent Role="Set_Menu_Includes_Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Collect_Combo_User">
+          <End Role="Combo" Type="Self.Combo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Collect_Combo" Type="Self.User_Collect_Combo" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Combo">
+              <PropertyRef Name="Combo_ID" />
+            </Principal>
+            <Dependent Role="User_Collect_Combo">
+              <PropertyRef Name="Combo_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Collect_Combo_User1">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Collect_Combo" Type="Self.User_Collect_Combo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="User_Collect_Combo">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Collect_Dishes_Dishes">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Collect_Dishes" Type="Self.User_Collect_Dishes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Principal>
+            <Dependent Role="User_Collect_Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Collect_Dishes_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User_Collect_Dishes" Type="Self.User_Collect_Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="User_Collect_Dishes">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Food_searchModelStoreContainer">
+          <EntitySet Name="Categories_Of_Food" EntityType="Self.Categories_Of_Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Combo" EntityType="Self.Combo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dishes" EntityType="Self.Dishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dishes_Contain_Food" EntityType="Self.Dishes_Contain_Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedback_Article" EntityType="Self.Feedback_Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Set_Menu_Includes_Dishes" EntityType="Self.Set_Menu_Includes_Dishes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Collect_Combo" EntityType="Self.User_Collect_Combo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Collect_Dishes" EntityType="Self.User_Collect_Dishes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dishes_Contain_Food_Food" Association="Self.FK_Dishes_Contain_Food_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Dishes_Contain_Food" EntitySet="Dishes_Contain_Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_Dishes_Contain_Food" Association="Self.FK_Dishes_Dishes_Contain_Food">
+            <End Role="Dishes_Contain_Food" EntitySet="Dishes_Contain_Food" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_Manager" Association="Self.FK_Dishes_Manager">
+            <End Role="Manager" EntitySet="Manager" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_User" Association="Self.FK_Dishes_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Article_Manager" Association="Self.FK_Feedback_Article_Manager">
+            <End Role="Manager" EntitySet="Manager" />
+            <End Role="Feedback_Article" EntitySet="Feedback_Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Article_User" Association="Self.FK_Feedback_Article_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feedback_Article" EntitySet="Feedback_Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Food_Categories_Of_Food" Association="Self.FK_Food_Categories_Of_Food">
+            <End Role="Categories_Of_Food" EntitySet="Categories_Of_Food" />
+            <End Role="Food" EntitySet="Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Menu_Includes_Dishes_Combo" Association="Self.FK_Set_Menu_Includes_Dishes_Combo">
+            <End Role="Combo" EntitySet="Combo" />
+            <End Role="Set_Menu_Includes_Dishes" EntitySet="Set_Menu_Includes_Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Set_Menu_Includes_Dishes_Dishes" Association="Self.FK_Set_Menu_Includes_Dishes_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="Set_Menu_Includes_Dishes" EntitySet="Set_Menu_Includes_Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Collect_Combo_User" Association="Self.FK_User_Collect_Combo_User">
+            <End Role="Combo" EntitySet="Combo" />
+            <End Role="User_Collect_Combo" EntitySet="User_Collect_Combo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Collect_Combo_User1" Association="Self.FK_User_Collect_Combo_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Collect_Combo" EntitySet="User_Collect_Combo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Collect_Dishes_Dishes" Association="Self.FK_User_Collect_Dishes_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="User_Collect_Dishes" EntitySet="User_Collect_Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Collect_Dishes_User" Association="Self.FK_User_Collect_Dishes_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="User_Collect_Dishes" EntitySet="User_Collect_Dishes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Food_searchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categories_Of_Food">
+          <Key>
+            <PropertyRef Name="Categories_Of_Food_ID" />
+          </Key>
+          <Property Name="Categories_Of_Food_ID" Type="Int32" Nullable="false" />
+          <Property Name="Categories_Of_Food_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Food_Categories_Of_Food" FromRole="Categories_Of_Food" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="Combo">
+          <Key>
+            <PropertyRef Name="Combo_ID" />
+          </Key>
+          <Property Name="Combo_ID" Type="Int32" Nullable="false" />
+          <Property Name="Combo_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Combo_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Dishes" Relationship="Self.Set_Menu_Includes_Dishes" FromRole="Combo" ToRole="Dishes" />
+          <NavigationProperty Name="User" Relationship="Self.User_Collect_Combo" FromRole="Combo" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Dishes">
+          <Key>
+            <PropertyRef Name="Dishes_ID" />
+          </Key>
+          <Property Name="Dishes_ID" Type="Int32" Nullable="false" />
+          <Property Name="Dishes_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dishes_Methods" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dishes_Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Dishes_Remark" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Dishes_Recommend_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Food_Review_Date" Type="DateTime" Precision="0" />
+          <Property Name="Food_Review_Result" Type="Byte" Nullable="false" />
+          <Property Name="Referral_User_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Review_Manager_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dishes_Contain_Food" Relationship="Self.FK_Dishes_Dishes_Contain_Food" FromRole="Dishes" ToRole="Dishes_Contain_Food" />
+          <NavigationProperty Name="Manager" Relationship="Self.FK_Dishes_Manager" FromRole="Dishes" ToRole="Manager" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Dishes_User" FromRole="Dishes" ToRole="User" />
+          <NavigationProperty Name="Combo" Relationship="Self.Set_Menu_Includes_Dishes" FromRole="Dishes" ToRole="Combo" />
+          <NavigationProperty Name="User1" Relationship="Self.User_Collect_Dishes" FromRole="Dishes" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Dishes_Contain_Food">
+          <Key>
+            <PropertyRef Name="Dishes_ID" />
+          </Key>
+          <Property Name="Dishes_ID" Type="Int32" Nullable="false" />
+          <Property Name="Food_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dishes" Relationship="Self.FK_Dishes_Dishes_Contain_Food" FromRole="Dishes_Contain_Food" ToRole="Dishes" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Dishes_Contain_Food_Food" FromRole="Dishes_Contain_Food" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="Feedback_Article">
+          <Key>
+            <PropertyRef Name="Article_ID" />
+          </Key>
+          <Property Name="Article_ID" Type="Int32" Nullable="false" />
+          <Property Name="Article_Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Article_Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Article_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Article_Review_Result" Type="Byte" Nullable="false" />
+          <Property Name="Article_User_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Article_Manager_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Article_Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Manager" Relationship="Self.FK_Feedback_Article_Manager" FromRole="Feedback_Article" ToRole="Manager" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Feedback_Article_User" FromRole="Feedback_Article" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="Food_ID" />
+          </Key>
+          <Property Name="Food_ID" Type="Int32" Nullable="false" />
+          <Property Name="Food_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Categories_Of_Food_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categories_Of_Food" Relationship="Self.FK_Food_Categories_Of_Food" FromRole="Food" ToRole="Categories_Of_Food" />
+          <NavigationProperty Name="Dishes_Contain_Food" Relationship="Self.FK_Dishes_Contain_Food_Food" FromRole="Food" ToRole="Dishes_Contain_Food" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="Manager_ID" />
+          </Key>
+          <Property Name="Manager_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Manager_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Dishes" Relationship="Self.FK_Dishes_Manager" FromRole="Manager" ToRole="Dishes" />
+          <NavigationProperty Name="Feedback_Article" Relationship="Self.FK_Feedback_Article_Manager" FromRole="Manager" ToRole="Feedback_Article" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Nick_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Mail" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="User_Birth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Dishes" Relationship="Self.FK_Dishes_User" FromRole="User" ToRole="Dishes" />
+          <NavigationProperty Name="Feedback_Article" Relationship="Self.FK_Feedback_Article_User" FromRole="User" ToRole="Feedback_Article" />
+          <NavigationProperty Name="Combo" Relationship="Self.User_Collect_Combo" FromRole="User" ToRole="Combo" />
+          <NavigationProperty Name="Dishes1" Relationship="Self.User_Collect_Dishes" FromRole="User" ToRole="Dishes" />
+        </EntityType>
+        <Association Name="FK_Food_Categories_Of_Food">
+          <End Role="Categories_Of_Food" Type="Self.Categories_Of_Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories_Of_Food">
+              <PropertyRef Name="Categories_Of_Food_ID" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="Categories_Of_Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_Dishes_Contain_Food">
+          <End Role="Dishes_Contain_Food" Type="Self.Dishes_Contain_Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Dishes_Contain_Food">
+              <PropertyRef Name="Dishes_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Dishes_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_Manager">
+          <End Role="Manager" Type="Self.Manager" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Review_Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Dishes">
+              <PropertyRef Name="Referral_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dishes_Contain_Food_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Dishes_Contain_Food" Type="Self.Dishes_Contain_Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="Food_ID" />
+            </Principal>
+            <Dependent Role="Dishes_Contain_Food">
+              <PropertyRef Name="Food_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Article_Manager">
+          <End Role="Manager" Type="Self.Manager" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Feedback_Article" Type="Self.Feedback_Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manager">
+              <PropertyRef Name="Manager_ID" />
+            </Principal>
+            <Dependent Role="Feedback_Article">
+              <PropertyRef Name="Article_Manager_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Article_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Feedback_Article" Type="Self.Feedback_Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="User_ID" />
+            </Principal>
+            <Dependent Role="Feedback_Article">
+              <PropertyRef Name="Article_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Set_Menu_Includes_Dishes">
+          <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="0..1" />
+        </Association>
+        <Association Name="User_Collect_Combo">
+          <End Role="Combo" Type="Self.Combo" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+        </Association>
+        <Association Name="User_Collect_Dishes">
+          <End Role="Dishes" Type="Self.Dishes" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+        </Association>
+        <EntityContainer Name="Food_searchEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories_Of_Food" EntityType="Self.Categories_Of_Food" />
+          <EntitySet Name="Combo" EntityType="Self.Combo" />
+          <EntitySet Name="Dishes" EntityType="Self.Dishes" />
+          <EntitySet Name="Dishes_Contain_Food" EntityType="Self.Dishes_Contain_Food" />
+          <EntitySet Name="Feedback_Article" EntityType="Self.Feedback_Article" />
+          <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Food_Categories_Of_Food" Association="Self.FK_Food_Categories_Of_Food">
+            <End Role="Categories_Of_Food" EntitySet="Categories_Of_Food" />
+            <End Role="Food" EntitySet="Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_Dishes_Contain_Food" Association="Self.FK_Dishes_Dishes_Contain_Food">
+            <End Role="Dishes_Contain_Food" EntitySet="Dishes_Contain_Food" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_Manager" Association="Self.FK_Dishes_Manager">
+            <End Role="Manager" EntitySet="Manager" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_User" Association="Self.FK_Dishes_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dishes_Contain_Food_Food" Association="Self.FK_Dishes_Contain_Food_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Dishes_Contain_Food" EntitySet="Dishes_Contain_Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Article_Manager" Association="Self.FK_Feedback_Article_Manager">
+            <End Role="Manager" EntitySet="Manager" />
+            <End Role="Feedback_Article" EntitySet="Feedback_Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Article_User" Association="Self.FK_Feedback_Article_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Feedback_Article" EntitySet="Feedback_Article" />
+          </AssociationSet>
+          <AssociationSet Name="Set_Menu_Includes_Dishes" Association="Self.Set_Menu_Includes_Dishes">
+            <End Role="Combo" EntitySet="Combo" />
+            <End Role="Dishes" EntitySet="Dishes" />
+          </AssociationSet>
+          <AssociationSet Name="User_Collect_Combo" Association="Self.User_Collect_Combo">
+            <End Role="Combo" EntitySet="Combo" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="User_Collect_Dishes" Association="Self.User_Collect_Dishes">
+            <End Role="Dishes" EntitySet="Dishes" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Food_searchModelStoreContainer" CdmEntityContainer="Food_searchEntities">
+          <EntitySetMapping Name="Categories_Of_Food">
+            <EntityTypeMapping TypeName="Food_searchModel.Categories_Of_Food">
+              <MappingFragment StoreEntitySet="Categories_Of_Food">
+                <ScalarProperty Name="Categories_Of_Food_ID" ColumnName="Categories_Of_Food_ID" />
+                <ScalarProperty Name="Categories_Of_Food_Name" ColumnName="Categories_Of_Food_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Combo">
+            <EntityTypeMapping TypeName="Food_searchModel.Combo">
+              <MappingFragment StoreEntitySet="Combo">
+                <ScalarProperty Name="Combo_ID" ColumnName="Combo_ID" />
+                <ScalarProperty Name="Combo_Name" ColumnName="Combo_Name" />
+                <ScalarProperty Name="Combo_Date" ColumnName="Combo_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dishes">
+            <EntityTypeMapping TypeName="Food_searchModel.Dishes">
+              <MappingFragment StoreEntitySet="Dishes">
+                <ScalarProperty Name="Dishes_ID" ColumnName="Dishes_ID" />
+                <ScalarProperty Name="Dishes_Name" ColumnName="Dishes_Name" />
+                <ScalarProperty Name="Dishes_Methods" ColumnName="Dishes_Methods" />
+                <ScalarProperty Name="Dishes_Photo" ColumnName="Dishes_Photo" />
+                <ScalarProperty Name="Dishes_Remark" ColumnName="Dishes_Remark" />
+                <ScalarProperty Name="Dishes_Recommend_Date" ColumnName="Dishes_Recommend_Date" />
+                <ScalarProperty Name="Food_Review_Date" ColumnName="Food_Review_Date" />
+                <ScalarProperty Name="Food_Review_Result" ColumnName="Food_Review_Result" />
+                <ScalarProperty Name="Referral_User_ID" ColumnName="Referral_User_ID" />
+                <ScalarProperty Name="Review_Manager_ID" ColumnName="Review_Manager_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dishes_Contain_Food">
+            <EntityTypeMapping TypeName="Food_searchModel.Dishes_Contain_Food">
+              <MappingFragment StoreEntitySet="Dishes_Contain_Food">
+                <ScalarProperty Name="Dishes_ID" ColumnName="Dishes_ID" />
+                <ScalarProperty Name="Food_ID" ColumnName="Food_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedback_Article">
+            <EntityTypeMapping TypeName="Food_searchModel.Feedback_Article">
+              <MappingFragment StoreEntitySet="Feedback_Article">
+                <ScalarProperty Name="Article_ID" ColumnName="Article_ID" />
+                <ScalarProperty Name="Article_Title" ColumnName="Article_Title" />
+                <ScalarProperty Name="Article_Text" ColumnName="Article_Text" />
+                <ScalarProperty Name="Article_Date" ColumnName="Article_Date" />
+                <ScalarProperty Name="Article_Review_Result" ColumnName="Article_Review_Result" />
+                <ScalarProperty Name="Article_User_ID" ColumnName="Article_User_ID" />
+                <ScalarProperty Name="Article_Manager_ID" ColumnName="Article_Manager_ID" />
+                <ScalarProperty Name="Article_Photo" ColumnName="Article_Photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="Food_searchModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="Food_ID" ColumnName="Food_ID" />
+                <ScalarProperty Name="Food_Name" ColumnName="Food_Name" />
+                <ScalarProperty Name="Categories_Of_Food_ID" ColumnName="Categories_Of_Food_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manager">
+            <EntityTypeMapping TypeName="Food_searchModel.Manager">
+              <MappingFragment StoreEntitySet="Manager">
+                <ScalarProperty Name="Manager_Password" ColumnName="Manager_Password" />
+                <ScalarProperty Name="Manager_ID" ColumnName="Manager_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Food_searchModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="Food_searchModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="User_Password" ColumnName="User_Password" />
+                <ScalarProperty Name="User_Nick_Name" ColumnName="User_Nick_Name" />
+                <ScalarProperty Name="User_Mail" ColumnName="User_Mail" />
+                <ScalarProperty Name="User_Phone" ColumnName="User_Phone" />
+                <ScalarProperty Name="User_Birth" ColumnName="User_Birth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Set_Menu_Includes_Dishes" TypeName="Food_searchModel.Set_Menu_Includes_Dishes" StoreEntitySet="Set_Menu_Includes_Dishes">
+            <EndProperty Name="Combo">
+              <ScalarProperty Name="Combo_ID" ColumnName="Combo_ID" />
+            </EndProperty>
+            <EndProperty Name="Dishes">
+              <ScalarProperty Name="Dishes_ID" ColumnName="Dishes_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="User_Collect_Combo" TypeName="Food_searchModel.User_Collect_Combo" StoreEntitySet="User_Collect_Combo">
+            <EndProperty Name="Combo">
+              <ScalarProperty Name="Combo_ID" ColumnName="Combo_ID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="User_Collect_Dishes" TypeName="Food_searchModel.User_Collect_Dishes" StoreEntitySet="User_Collect_Dishes">
+            <EndProperty Name="Dishes">
+              <ScalarProperty Name="Dishes_ID" ColumnName="Dishes_ID" />
+            </EndProperty>
+            <EndProperty Name="User">
+              <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

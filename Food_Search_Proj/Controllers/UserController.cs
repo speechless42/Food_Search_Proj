@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Food_Search_Proj.Models;
 
 namespace Food_Search_Proj.Controllers
 {
@@ -10,6 +11,11 @@ namespace Food_Search_Proj.Controllers
     {
         // GET: User
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult User_Sign_Up()   //使用者註冊
         {
             return View();
         }
