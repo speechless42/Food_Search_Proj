@@ -203,6 +203,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\invisible.png" />
+    <Content Include="image\sign_up_head.png" />
+    <Content Include="image\visible.png" />
     <Content Include="Models\FdShModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FdShModel.Context.cs</LastGenOutput>
@@ -252,10 +255,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\User_Sign_Up.cshtml" />
+    <Content Include="Views\Admin\CreateCategoriesFood.cshtml" />
+    <Content Include="Views\Admin\PASS.cshtml" />
+    <Content Include="Views\Admin\CreateFood.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
