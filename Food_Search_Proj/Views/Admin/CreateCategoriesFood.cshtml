@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Categories_Of_Food_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Categories_Of_Food_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.COFID } })
+                @Html.EditorFor(model => model.Categories_Of_Food_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.COFID  } })
                 @Html.ValidationMessageFor(model => model.Categories_Of_Food_ID, "", new { @class = "text-danger" })
             </div>
         </div>

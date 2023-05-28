@@ -31,6 +31,7 @@ namespace Food_Search_Proj.Models
         [Display(Name = "密碼")]
         public string User_Password { get; set; }
         [Display(Name = "確認密碼")]
+        [Compare("User_Password", ErrorMessage = "兩次輸入的密碼必須相符！")]
         public string User_Password_Again { get; set; }
         [Required(ErrorMessage = "暱稱不可空白")]
         [Display(Name = "暱稱")]
@@ -40,6 +41,7 @@ namespace Food_Search_Proj.Models
         [Display(Name = "信箱")]
         public string User_Mail { get; set; }
         [Required(ErrorMessage = "手機號碼不可空白")]
+        [Phone(ErrorMessage = "格式有誤！")]
         [StringLength(10, ErrorMessage = "電話格式錯誤！", MinimumLength = 10)]
         [Display(Name = "電話")]
         public string User_Phone { get; set; }

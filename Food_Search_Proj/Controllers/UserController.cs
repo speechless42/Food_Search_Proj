@@ -26,7 +26,7 @@ namespace Food_Search_Proj.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(user);
             }
             ViewBag.ERROR = false;
             ViewBag.again_ERROR = false;

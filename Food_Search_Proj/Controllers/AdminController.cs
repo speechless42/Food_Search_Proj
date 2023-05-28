@@ -79,8 +79,17 @@ namespace Food_Search_Proj.Controllers
             DB.SaveChanges();
             return RedirectToAction("PASS");
         }
+
+        //新增食譜
+        public ActionResult CreateDishes()
+        {
+            return View();
+        }
+
         public ActionResult PASS() {
             return View();
         }
+
+
     }
 }
