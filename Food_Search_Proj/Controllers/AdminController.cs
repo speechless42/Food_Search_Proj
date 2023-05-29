@@ -16,7 +16,7 @@ namespace Food_Search_Proj.Controllers
         {
             return View();
         }
-        //新增類別區域
+        //*新增類別區域
         public ActionResult CreateCategoriesFood()
         {
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
@@ -45,7 +45,7 @@ namespace Food_Search_Proj.Controllers
             DB.SaveChanges();
             return RedirectToAction("PASS");
         }
-        //新增食材區域
+        //*新增食材區域
         public ActionResult CreateFood()
         {
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
@@ -79,7 +79,18 @@ namespace Food_Search_Proj.Controllers
             DB.SaveChanges();
             return RedirectToAction("PASS");
         }
-
+        //*顯示所有食材
+        public ActionResult ShowFood()
+        {
+            var Allfood = DB.Food.OrderByDescending(m => m.Food_ID).ToList();
+            return View(Allfood);
+        }
+        //*顯示所有類別
+        public ActionResult ShowCategoriesOfFood()
+        {
+            var AllCategoriesFood = DB.Categories_Of_Food.OrderByDescending(m => m.Categories_Of_Food_ID).ToList();
+            return View(AllCategoriesFood);
+        }
         //新增食譜
         public ActionResult CreateDishes()
         {

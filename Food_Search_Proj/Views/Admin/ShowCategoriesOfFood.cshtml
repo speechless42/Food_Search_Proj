@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Food_Search_Proj.Models.Categories_Of_Food>
+
+@{
+    ViewBag.Title = "ShowCategoriesOfFood";
+}
+
+<h2>ShowCategoriesOfFood</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Categories_Of_Food_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categories_Of_Food_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Categories_Of_Food_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Categories_Of_Food_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Categories_Of_Food_ID })
+        </td>
+    </tr>
+}
+
+</table>
