@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Dishes_ID, "Dishes_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_ID,  new { htmlAttributes =  new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Dishes_ID,  new { htmlAttributes =  new { @class = "form-control" , @Value=ViewBag.DishID } })
                 @Html.ValidationMessageFor(model => model.Dishes_ID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Dishes_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Photo, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.FileFor(model => model.Dishes_Photo, new { htmlAttributes = new { @class = "form-control",  type = "File" } })*@
+                <input type="file" name="file" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,11 +55,11 @@
                 @Html.ValidationMessageFor(model => model.Dishes_Remark, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Dishes_Recommend_Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Recommend_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Dishes_Recommend_Date, new { htmlAttributes = new { @class = "form-control", @type = "date"} } )
                 @Html.ValidationMessageFor(model => model.Dishes_Recommend_Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Food_Review_Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Food_Review_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Food_Review_Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.Food_Review_Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +75,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Food_Review_Result, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Food_Review_Result, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Food_Review_Result, new { htmlAttributes = new { @class = "form-control" ,@Value=ViewBag.ReviewResult } })
                 @Html.ValidationMessageFor(model => model.Food_Review_Result, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -110,3 +111,17 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                today : ""
+            }
+        },
+        mounted() {
+            
+        }
+    }).mount('#app')
+</script>

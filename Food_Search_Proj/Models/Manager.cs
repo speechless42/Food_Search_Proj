@@ -11,7 +11,8 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Manager
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,9 +21,13 @@ namespace Food_Search_Proj.Models
             this.Dishes = new HashSet<Dishes>();
             this.Feedback_Article = new HashSet<Feedback_Article>();
         }
-    
-        public string Manager_Password { get; set; }
+        [Display(Name = "管理員帳號")]
+        [Required]
         public string Manager_ID { get; set; }
+        [Display(Name = "管理員密碼")]
+        [Required]
+        public string Manager_Password { get; set; }
+        
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dishes> Dishes { get; set; }

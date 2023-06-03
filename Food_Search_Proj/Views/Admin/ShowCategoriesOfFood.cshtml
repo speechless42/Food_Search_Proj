@@ -4,10 +4,10 @@
     ViewBag.Title = "ShowCategoriesOfFood";
 }
 
-<h2>ShowCategoriesOfFood</h2>
+<h2>顯示石材類別</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("新增類別", "CreateCategoriesFood")
 </p>
 <table class="table">
     <tr>
@@ -22,11 +22,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.Categories_Of_Food_Name)
         </td>
-        <td>
+        @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Categories_Of_Food_ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.Categories_Of_Food_ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Categories_Of_Food_ID })
-        </td>
+        </td>*@
     </tr>
 }
 

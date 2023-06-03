@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Id", "帳號：")
+        <input type="text" placeholder="輸入帳號" id="Id" name="Id" required/>
+    </div>
+    <div>
+        @Html.Label("Pwd", "密碼：")
+        <input type="password"  id="Pwd" name="Pwd" placeholder="輸入密碼" required/>
+    </div>
+    <div>
+        @Html.Label("VertyCode", "驗證碼：")
+        <input type="text" placeholder="輸入驗證碼" id="VertyCode" name="VertyCode" required />
+        <span>@ViewBag.vertcode</span>
+    </div>
+    <div>
+        <input type="submit" value="提交" />
+    </div>
+}
+<div class="text-danger">
+    @TempData["Message"]
+</div>

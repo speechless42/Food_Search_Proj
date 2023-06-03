@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Food_Search_Proj.Models;
@@ -19,6 +20,10 @@ namespace Food_Search_Proj.Controllers
         //*新增類別區域
         public ActionResult CreateCategoriesFood()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Loss");
+            }
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var COFID = 0;
             if ((from i in DB.Categories_Of_Food select i.Categories_Of_Food_ID).Any() == false)
@@ -94,13 +99,92 @@ namespace Food_Search_Proj.Controllers
         //新增食譜
         public ActionResult CreateDishes()
         {
+            var DishID = 0;
+            if((from i in DB.Dishes select i.Dishes_ID).Any() == false)
+            {
+                ViewBag.DishID = DishID;
+            }
+            else
+            {
+                DishID = (from i in DB.Dishes select i.Dishes_ID).Max();
+                DishID += 1;
+                ViewBag.DishID = DishID;
+            }
+            ViewBag.WriteDay = Convert.ToDateTime(DateTime.Now.Date.ToString("yyyy/MM/dd"));
+            ViewBag.ReviewResult = 2;
+            return View();
+            //自訂日期填寫
+            
+        }
+        [HttpPost]
+        public ActionResult CreateDishes(Dishes dishes)
+        {
+            
             return View();
         }
 
+        //通過，請先登入頁面
         public ActionResult PASS() {
             return View();
         }
+        public ActionResult Loss() { 
+            return View(); 
+        }
 
+        //新增管理員帳號，需求情節沒有測試用
+        public ActionResult Adminaccount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Adminaccount(Manager manager)
+        {
+            if (!ModelState.IsValid) { return View(manager); }
+            DB.Manager.Add(manager);
+            DB.SaveChanges();
+            return RedirectToAction("PASS");
+        }
+        //驗證碼
+        public string RandomCode()
+        {
+            string s = "0123456789abcdefghijklmnopqrstuvwxyz";
+            StringBuilder sb = new StringBuilder();
+            Random rand = new Random();
+            int index;
+            for (int i = 0; i < 4; i++)
+            {
+                index = rand.Next(0, s.Length);
+                sb.Append(s[index]);
+            }
+            return sb.ToString();
+        }
+        //管理者登入
+        public ActionResult Login() {
+            string code = RandomCode();
+            ViewBag.vertcode = code;
+            Session["vertcode"] = code;
+            return View(); 
+        }
+        [HttpPost]
+        public ActionResult Login(string ID,string Pwd,string vertycode)
+        {
+            string code = Session["vertcode"].ToString();
+            var x = DB.Manager.Where(m => m.Manager_ID == ID && m.Manager_Password == Pwd).FirstOrDefault();
+            if (x == null)
+            {
+                
+                TempData["Message"] = "帳號or密碼錯誤，請重新確認登入";
+                return RedirectToAction("Login");
 
+            }
+            else if (vertycode != code)
+            {
+                TempData["Message"] = "驗證碼錯誤";
+                return RedirectToAction("Login");
+            }
+            Session.Clear();
+            Session["user"] = ID;
+            return RedirectToAction("PASS");
+        }
     }
 }
