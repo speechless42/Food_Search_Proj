@@ -53,6 +53,10 @@ namespace Food_Search_Proj.Controllers
         //*新增食材區域
         public ActionResult CreateFood()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Loss");
+            }
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var FDID = 0;
             if ((from i in DB.Food select i.Food_ID).Any() == false)
@@ -87,18 +91,30 @@ namespace Food_Search_Proj.Controllers
         //*顯示所有食材
         public ActionResult ShowFood()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Loss");
+            }
             var Allfood = DB.Food.OrderByDescending(m => m.Food_ID).ToList();
             return View(Allfood);
         }
         //*顯示所有類別
         public ActionResult ShowCategoriesOfFood()
         {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Loss");
+            }
             var AllCategoriesFood = DB.Categories_Of_Food.OrderByDescending(m => m.Categories_Of_Food_ID).ToList();
             return View(AllCategoriesFood);
         }
         //新增食譜
         public ActionResult CreateDishes()
         {
+            //if (Session["user"] == null)
+            //{
+            //    return RedirectToAction("Loss");
+            //}
             var DishID = 0;
             if((from i in DB.Dishes select i.Dishes_ID).Any() == false)
             {
@@ -110,7 +126,7 @@ namespace Food_Search_Proj.Controllers
                 DishID += 1;
                 ViewBag.DishID = DishID;
             }
-            ViewBag.WriteDay = Convert.ToDateTime(DateTime.Now.Date.ToString("yyyy/MM/dd"));
+            ViewBag.User = Session["user"];
             ViewBag.ReviewResult = 2;
             return View();
             //自訂日期填寫
