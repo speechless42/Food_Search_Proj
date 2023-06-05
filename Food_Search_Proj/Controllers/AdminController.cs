@@ -20,10 +20,10 @@ namespace Food_Search_Proj.Controllers
         //*新增類別區域
         public ActionResult CreateCategoriesFood()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Loss");
-            }
+            //if (Session["user"] == null)
+            //{
+            //    return RedirectToAction("Loss");
+            //}
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var COFID = 0;
             if ((from i in DB.Categories_Of_Food select i.Categories_Of_Food_ID).Any() == false)
@@ -53,10 +53,10 @@ namespace Food_Search_Proj.Controllers
         //*新增食材區域
         public ActionResult CreateFood()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Loss");
-            }
+            //if (Session["user"] == null)
+            //{
+            //    return RedirectToAction("Loss");
+            //}
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var FDID = 0;
             if ((from i in DB.Food select i.Food_ID).Any() == false)
@@ -91,30 +91,38 @@ namespace Food_Search_Proj.Controllers
         //*顯示所有食材
         public ActionResult ShowFood()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Loss");
-            }
+            //if (Session["user"] == null)
+            //{
+            //    return RedirectToAction("Loss");
+            //}
             var Allfood = DB.Food.OrderByDescending(m => m.Food_ID).ToList();
             return View(Allfood);
         }
         //*顯示所有類別
         public ActionResult ShowCategoriesOfFood()
         {
-            if (Session["user"] == null)
-            {
-                return RedirectToAction("Loss");
-            }
+            //if (Session["user"] == null)
+            //{
+            //    return RedirectToAction("Loss");
+            //}
             var AllCategoriesFood = DB.Categories_Of_Food.OrderByDescending(m => m.Categories_Of_Food_ID).ToList();
             return View(AllCategoriesFood);
         }
-        //新增食譜
+
+        //管理者顯示菜餚
+        public ActionResult ShowDishes()
+        {
+            var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
+            return View(AllDishes);
+        }
+        //新增菜餚
         public ActionResult CreateDishes()
         {
             //if (Session["user"] == null)
             //{
             //    return RedirectToAction("Loss");
             //}
+            //自動編號ID
             var DishID = 0;
             if((from i in DB.Dishes select i.Dishes_ID).Any() == false)
             {
@@ -126,19 +134,53 @@ namespace Food_Search_Proj.Controllers
                 DishID += 1;
                 ViewBag.DishID = DishID;
             }
+            //食材
+            List<SelectListItem> DishesContainFood = new List<SelectListItem> (){ };
+            foreach (var item in DB.Food)
+            {
+                DishesContainFood.Add(new SelectListItem { Text = item.Food_Name, Value = item.Food_ID.ToString() });
+            }
             ViewBag.User = Session["user"];
             ViewBag.ReviewResult = 2;
+            ViewBag.Dishes_Contain_Food_Value = DishesContainFood;
             return View();
-            //自訂日期填寫
+            
             
         }
         [HttpPost]
         public ActionResult CreateDishes(Dishes dishes)
         {
-            
-            return View();
+            //List<Dishes_Contain_Food> DCF = new List<Dishes_Contain_Food>();
+            Dishes_Contain_Food DCF1 = new Dishes_Contain_Food();
+            foreach (var ID in dishes.Dishes_Contain_Food_Value)
+            {
+                //DCF.Add(new Dishes_Contain_Food { Dishes_ID = dishes.Dishes_ID , Food_ID = int.Parse(ID) });
+                DCF1.Dishes_ID = dishes.Dishes_ID;
+                DCF1.Food_ID = int.Parse(ID);
+                DB.Dishes_Contain_Food.Add(DCF1);
+                DB.SaveChanges();
+            }
+            DB.Dishes.Add(dishes);
+            DB.SaveChanges();
+            ViewBag.show = dishes.Dishes_Contain_Food_Value[1];
+            return RedirectToAction("PASS");
         }
-
+        //編輯菜餚
+        public ActionResult EditDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            return View(dishes);
+        }
+        [HttpPost]
+        public ActionResult EditDishes(Dishes dishes)
+        {
+            Dishes Editdishe = DB.Dishes.Where(m => m.Dishes_ID == dishes.Dishes_ID).FirstOrDefault();
+            Editdishe.Dishes_Name = dishes.Dishes_Name;
+            Editdishe.Dishes_Methods = dishes.Dishes_Methods;
+            Editdishe.Dishes_Remark = dishes.Dishes_Remark;
+            DB.SaveChanges();
+            return RedirectToAction("ShowDishes");
+        }
         //通過，請先登入頁面
         public ActionResult PASS() {
             return View();
@@ -202,5 +244,7 @@ namespace Food_Search_Proj.Controllers
             Session["user"] = ID;
             return RedirectToAction("PASS");
         }
+
+        
     }
 }

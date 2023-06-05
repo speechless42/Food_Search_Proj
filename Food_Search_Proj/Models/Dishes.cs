@@ -45,7 +45,8 @@ namespace Food_Search_Proj.Models
         public string Referral_User_ID { get; set; }
         [Display(Name = "審核菜餚的管理者名稱")]
         public string Review_Manager_ID { get; set; }
-    
+        //自己新增的        
+        public string[] Dishes_Contain_Food_Value { get; set; }
         public virtual Dishes_Contain_Food Dishes_Contain_Food { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual User User { get; set; }
