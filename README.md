@@ -22,7 +22,6 @@
 
 ## 修改中
 #### 管理者創建菜餚
-剩下 Dishes contain food 需增加key
-圖片
+剩下 Dishes contain food 需增加key 與 圖片
 
 
