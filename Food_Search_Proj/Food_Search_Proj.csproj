@@ -265,6 +265,7 @@
     <Content Include="Views\Admin\Loss.cshtml" />
     <Content Include="Views\Admin\ShowDishes.cshtml" />
     <Content Include="Views\Admin\EditDishes.cshtml" />
+    <Content Include="Views\User\User_Sign_In.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

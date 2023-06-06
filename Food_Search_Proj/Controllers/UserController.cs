@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Food_Search_Proj.Models;
@@ -16,13 +17,13 @@ namespace Food_Search_Proj.Controllers
         {
             return View();
         }
-        //更改當中
-        public ActionResult User_Sign_Up()   //使用者註冊
+        //使用者註冊
+        public ActionResult User_Sign_Up()   
         {
             return View();
         }
         [HttpPost]
-        public ActionResult User_Sign_Up(User user)   //使用者註冊
+        public ActionResult User_Sign_Up(User user)   
         {
             if (!ModelState.IsValid)
             {
@@ -56,5 +57,49 @@ namespace Food_Search_Proj.Controllers
             DB.SaveChanges();
             return RedirectToAction("User_Sign_Up");
         }
+
+        //使用者登入
+        public string RandomCode() //驗證碼
+        {
+            string s = "0123456789abcdefghijklmnopqrstuvwxyz";
+            StringBuilder sb = new StringBuilder();
+            Random rand = new Random();
+            int index;
+            for (int i = 0; i < 4; i++)
+            {
+                index = rand.Next(0, s.Length);
+                sb.Append(s[index]);
+            }
+            return sb.ToString();
+        }
+        public ActionResult User_Sign_In()
+        {
+            string code = RandomCode();
+            ViewBag.vertcode = code;
+            Session["vertcode"] = code;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult User_Sign_In(string ID, string Pwd, string vertycode) {
+            string code = Session["vertcode"].ToString();
+            var x = DB.User.Where(m => m.User_ID == ID && m.User_Password == Pwd).FirstOrDefault();
+            if (x == null)
+            {
+                TempData["Message"] = "帳號or密碼錯誤，請重新確認登入";
+                return RedirectToAction("Login");
+            }
+            else if (vertycode != code)
+            {
+                TempData["Message"] = "驗證碼錯誤";
+                return RedirectToAction("Login");
+            }
+            Session.Clear();
+            Session["user"] = ID;
+            return RedirectToAction("Index");
+        }
+
+        //使用者收藏菜餚
+    
     }
+        
 }
