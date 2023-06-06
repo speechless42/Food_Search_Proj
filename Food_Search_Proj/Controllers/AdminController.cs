@@ -245,6 +245,35 @@ namespace Food_Search_Proj.Controllers
             return RedirectToAction("PASS");
         }
 
-        
+        //管理者更改密碼
+        public ActionResult ChangePassword()
+        {
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Loss");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(AdminChangePassword adminChangePassword)
+        {
+            string UserID = Session["user"].ToString();
+            if (!ModelState.IsValid)
+            {
+                return View(adminChangePassword);
+            }
+            Manager manager = (from id in DB.Manager
+                           where id.Manager_ID == UserID
+                               select id).FirstOrDefault();
+            if(manager.Manager_Password == adminChangePassword.Admin_Password)
+            {
+                manager.Manager_Password = adminChangePassword.Admin_New_Password;
+                DB.SaveChanges();
+
+                return View();
+            }
+            ViewBag.Error = "舊密碼輸入錯誤";
+            return View(adminChangePassword);
+        }
     }
 }

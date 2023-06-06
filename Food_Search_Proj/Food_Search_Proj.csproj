@@ -134,6 +134,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminChangePassword.cs" />
     <Compile Include="Models\Categories_Of_Food.cs">
       <DependentUpon>FdShModel.tt</DependentUpon>
     </Compile>
@@ -266,6 +267,7 @@
     <Content Include="Views\Admin\ShowDishes.cshtml" />
     <Content Include="Views\Admin\EditDishes.cshtml" />
     <Content Include="Views\User\User_Sign_In.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
