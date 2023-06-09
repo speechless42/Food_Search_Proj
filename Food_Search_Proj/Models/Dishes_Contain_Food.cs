@@ -11,13 +11,17 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Dishes_Contain_Food
     {
         public int Dishes_ID { get; set; }
         public int Food_ID { get; set; }
         public int DCF_ID { get; set; }
+
+        public string DishesContainFoodName { get; set; }
         public string Count { get; set; }
+
     
         public virtual Dishes Dishes { get; set; }
         public virtual Food Food { get; set; }

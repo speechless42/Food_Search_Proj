@@ -17,7 +17,8 @@ namespace Food_Search_Proj.Models
         public int Combo_ID { get; set; }
         public Nullable<int> Dishes_ID { get; set; }
         public int SMID_ID { get; set; }
-    
+        
+        public string SMIFName { get; set; }
         public virtual Combo Combo { get; set; }
         public virtual Dishes Dishes { get; set; }
     }

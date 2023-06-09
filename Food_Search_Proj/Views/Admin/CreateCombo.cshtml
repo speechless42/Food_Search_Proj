@@ -3,6 +3,16 @@
 @{
     ViewBag.Title = "CreateCombo";
 }
+<script>
+    $(function () {
+        $("#AddRow1").click(function () {
+            $.get("/Admin/ComboDishes", function (template) {
+                $("#AddDiv1").append(template)
+            });
+    });
+    });
+
+</script>
 
 <h2>CreateCombo</h2>
 
@@ -11,40 +21,45 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Combo</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Combo_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Combo_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Combo_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Combo_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Combo_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Combo_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Combo_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Combo_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Combo</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Combo_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ComboID } })
+            @Html.ValidationMessageFor(model => model.Combo_ID, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Combo_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Combo_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Combo_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <span>新增編號最底號請以 @ViewBag.SMID  續增</span>
+    <div><input type="button" value="新增列" id="AddRow1" /></div>
+    <div id="AddDiv1"></div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Combo_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Combo_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = System.DateTime.Today.ToString("yyyy-MM-dd") } })
+            @Html.ValidationMessageFor(model => model.Combo_Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>

@@ -11,16 +11,31 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Feedback_Article
     {
+        [Display(Name = "回饋文章編號")]
+        [Required]
         public int Article_ID { get; set; }
+        [Display(Name = "回饋文章標題")]
+        [Required]
         public string Article_Title { get; set; }
+        [Display(Name = "回饋文章內容")]
+        [Required]
         public string Article_Text { get; set; }
+        [Display(Name = "回饋文章日期")]
+        [Required]
         public System.DateTime Article_Date { get; set; }
+        [Display(Name = "審核狀態")]
+        [Required]
         public byte Article_Review_Result { get; set; }
+        [Display(Name = "使用者編號")]
+        [Required]
         public string Article_User_ID { get; set; }
+        [Display(Name = "審核管理者編號")]
         public string Article_Manager_ID { get; set; }
+        [Display(Name = "回饋文章照片")]
         public byte[] Article_Photo { get; set; }
     
         public virtual Manager Manager { get; set; }

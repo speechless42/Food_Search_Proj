@@ -21,9 +21,14 @@ namespace Food_Search_Proj.Models
             this.Set_Menu_Includes_Dishes = new HashSet<Set_Menu_Includes_Dishes>();
             this.User_Collect_Combo = new HashSet<User_Collect_Combo>();
         }
-        
+        [Display(Name ="套餐編號")]
+        [Required]
         public int Combo_ID { get; set; }
+        [Display(Name = "套餐名稱")]
+        [Required]
         public string Combo_Name { get; set; }
+        [Display(Name = "套餐日期")]
+        [Required]
         public System.DateTime Combo_Date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

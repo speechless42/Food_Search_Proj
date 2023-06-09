@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -269,10 +272,18 @@
     <Content Include="Views\Admin\ShowDishes.cshtml" />
     <Content Include="Views\Admin\EditDishes.cshtml" />
     <Content Include="Views\Admin\CreateCombo.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\Admin\DishesOfFood.cshtml" />
+    <Content Include="Views\Admin\ComboDishes.cshtml" />
+    <Content Include="Views\Admin\ShowCombo.cshtml" />
+    <Content Include="Views\Admin\EditCombo.cshtml" />
+    <Content Include="Views\User\User_Sign_Up.cshtml" />
+    <Content Include="Views\User\User_Sign_In.cshtml" />
+    <Content Include="Views\User\ShowCombo.cshtml" />
+    <Content Include="Views\User\ShowDishes.cshtml" />
+    <Content Include="Views\User\CreateArticle.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />

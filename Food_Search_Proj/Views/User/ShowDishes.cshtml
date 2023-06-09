@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Food_Search_Proj.Models.Dishes>
+
+@{
+    ViewBag.Title = "ShowDishes";
+}
+
+<h2>ShowDishes</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Dishes_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dishes_Methods)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dishes_Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dishes_Remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dishes_Recommend_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Food_Review_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Food_Review_Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Manager.Manager_Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.User_Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dishes_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dishes_Methods)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dishes_Photo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dishes_Remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Food_Review_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Food_Review_Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.User_Password)
+        </td>
+        <td>
+            @Html.ActionLink("收藏", "CollectDishes", new { id=item.Dishes_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Dishes_ID }) |
+
+        </td>
+    </tr>
+}
+
+</table>

@@ -185,6 +185,17 @@ namespace Food_Search_Proj.Controllers
                 DishID += 1;
                 ViewBag.DishID = DishID;
             }
+            var DCFID = 0;
+            if ((from i in DB.Dishes_Contain_Food select i.DCF_ID).Any() == false)
+            {
+                ViewBag.DCFID = DCFID;
+            }
+            else
+            {
+                DCFID = (from i in DB.Dishes_Contain_Food select i.DCF_ID).Max();
+                DCFID += 1;
+                ViewBag.DCFID = DCFID;
+            }
             //食材
             List<SelectListItem> DishesContainFood = new List<SelectListItem>() { };
             foreach (var item in DB.Food)
@@ -192,6 +203,7 @@ namespace Food_Search_Proj.Controllers
                 DishesContainFood.Add(new SelectListItem { Text = item.Food_Name, Value = item.Food_ID.ToString() });
             }
             ViewBag.User = Session["user"];
+            Session["DishesID"] = DishID;
             ViewBag.ReviewResult = 2;
             ViewBag.Dishes_Contain_Food_Value = DishesContainFood;
             return View();
@@ -201,33 +213,22 @@ namespace Food_Search_Proj.Controllers
         [HttpPost]
         public ActionResult CreateDishes(Dishes dishes)
         {
-            //List<Dishes_Contain_Food> DCF = new List<Dishes_Contain_Food>();
-            Dishes_Contain_Food DCF1 = new Dishes_Contain_Food();
-            if((from i in DB.Dishes_Contain_Food select i.DCF_ID).Any() == false)
-            {
-                DCF1.DCF_ID = 0;
-            }
-            else
-            {
-                DCF1.DCF_ID = (from i in DB.Dishes_Contain_Food select i.DCF_ID).Max();
-            }
-            foreach (var ID in dishes.Dishes_Contain_Food_Value)
-            {
-                //DCF.Add(new Dishes_Contain_Food { Dishes_ID = dishes.Dishes_ID , Food_ID = int.Parse(ID) });
-                if(DCF1.DCF_ID != 0)
-                {
-                    DCF1.DCF_ID += 1;
-                }
-                DCF1.Count = "999把";
-                DCF1.Dishes_ID = dishes.Dishes_ID;
-                DCF1.Food_ID = int.Parse(ID);
-                DB.Dishes_Contain_Food.Add(DCF1);
-                DB.SaveChanges();
-            }
+
             DB.Dishes.Add(dishes);
             DB.SaveChanges();
-            ViewBag.show = dishes.Dishes_Contain_Food_Value[1];
             return RedirectToAction("PASS");
+        }
+        ///////////////
+        //菜餚中的食材
+        public ActionResult DishesOfFood() {
+            List<SelectListItem> DishesContainFood = new List<SelectListItem>() { };
+            foreach (var item in DB.Food)
+            {
+                DishesContainFood.Add(new SelectListItem { Text = item.Food_ID.ToString() + "-" + item.Food_Name, Value = item.Food_ID.ToString() });
+            }
+            ViewBag.DishesContainFoodName = DishesContainFood;
+            ViewBag.DishID = Session["DishesID"].ToString();
+            return PartialView("DishesOfFood");
         }
         ///////////////
         //顯示菜餚
@@ -266,7 +267,74 @@ namespace Food_Search_Proj.Controllers
         //建立套餐
         public ActionResult CreateCombo()
         {
+            var ComboID = 0;
+            if ((from i in DB.Combo select i.Combo_ID).Any() == false)
+            {
+                ViewBag.ComboID = ComboID;
+            }
+            else
+            {
+                ComboID = (from i in DB.Combo select i.Combo_ID).Max();
+                ComboID += 1;
+                ViewBag.ComboID = ComboID;
+            }
+            var SMID = 0;
+            if ((from i in DB.Set_Menu_Includes_Dishes select i.SMID_ID).Any() == false)
+            {
+                ViewBag.SMID = SMID;
+            }
+            else
+            {
+                SMID = (from i in DB.Set_Menu_Includes_Dishes select i.SMID_ID).Max();
+                SMID += 1;
+                ViewBag.SMID = SMID + 1;
+            }
+            Session["ComboID"] = ComboID;
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult CreateCombo(Combo combo)
+        {
+            DB.Combo.Add(combo);
+            DB.SaveChanges();
+            return RedirectToAction("PASS");
+        }
+        ///////////////
+        //套餐的菜餚
+        public ActionResult ComboDishes()
+        {
+            List<SelectListItem> SMIFName = new List<SelectListItem>();
+            foreach(var item in DB.Dishes)
+            {
+                SMIFName.Add(new SelectListItem { Text = item.Dishes_ID.ToString() + "-" + item.Dishes_Name, Value = item.Dishes_ID.ToString() });
+            }
+            ViewBag.SMIFName = SMIFName;
+            ViewBag.ComboID = Session["ComboID"].ToString();
+            return PartialView("ComboDishes");
+        }
+        ///////////////
+        //顯示套餐
+        public ActionResult ShowCombo()
+        {
+            var AllCombo = DB.Combo.OrderByDescending(m => m.Combo_ID).ToList();
+            return View(AllCombo);
+        }
+        ///////////////
+        //編輯套餐
+        public ActionResult EditCombo(int id)
+        {
             return View();
         }
+        ///////////////
+        //刪除套餐
+        public ActionResult DeleteCombo(int id)
+        {
+            Combo combo = DB.Combo.Where(m => m.Combo_ID == id).FirstOrDefault();
+            DB.Combo.Remove(combo);
+            DB.SaveChanges();
+            return RedirectToAction("ShowCombo");
+        }
+        ///////////////
     }
 }
