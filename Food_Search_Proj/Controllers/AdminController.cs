@@ -221,7 +221,7 @@ namespace Food_Search_Proj.Controllers
                 DCF1.Count = "999把";
                 DCF1.Dishes_ID = dishes.Dishes_ID;
                 DCF1.Food_ID = int.Parse(ID);
-                DB.Dishes.
+                DB.Dishes_Contain_Food.Add(DCF1);
                 DB.SaveChanges();
             }
             DB.Dishes.Add(dishes);

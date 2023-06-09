@@ -11,7 +11,7 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Food
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,11 +19,18 @@ namespace Food_Search_Proj.Models
         {
             this.Dishes_Contain_Food = new HashSet<Dishes_Contain_Food>();
         }
-    
+
+        [Display(Name = "食材編號")]
+        [Required]
         public int Food_ID { get; set; }
+        [Display(Name = "食材名稱")]
+        [Required]
         public string Food_Name { get; set; }
+
         public int Categories_Of_Food_ID { get; set; }
-    
+        [Required]
+        [Display(Name = "分類名稱")]
+        public string Categories_Of_Food_Value { get; set; }
         public virtual Categories_Of_Food Categories_Of_Food { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dishes_Contain_Food> Dishes_Contain_Food { get; set; }

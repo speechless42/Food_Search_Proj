@@ -11,7 +11,8 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Dishes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,18 +22,35 @@ namespace Food_Search_Proj.Models
             this.Set_Menu_Includes_Dishes = new HashSet<Set_Menu_Includes_Dishes>();
             this.User_Collect_Dishes = new HashSet<User_Collect_Dishes>();
         }
-    
+
+        [Display(Name = "菜餚名稱")]
+        [Required]
         public int Dishes_ID { get; set; }
+        [Display(Name = "菜餚名稱")]
+        [Required]
         public string Dishes_Name { get; set; }
+        [Display(Name = "烹調辦法")]
+        [Required]
         public string Dishes_Methods { get; set; }
+        [Display(Name = "菜餚照片")]
         public byte[] Dishes_Photo { get; set; }
+        [Display(Name = "菜餚備註")]
         public string Dishes_Remark { get; set; }
+        [Display(Name = "菜餚登入日期")]
+        [Required]
         public System.DateTime Dishes_Recommend_Date { get; set; }
+        [Display(Name = "菜餚審核日期")]
         public Nullable<System.DateTime> Food_Review_Date { get; set; }
+        [Display(Name = "菜餚審核結果")]
+        [Required]
         public byte Food_Review_Result { get; set; }
+        [Display(Name = "推薦菜餚的使用者名稱")]
         public string Referral_User_ID { get; set; }
+        [Display(Name = "審核菜餚的管理者名稱")]
         public string Review_Manager_ID { get; set; }
-    
+        //自己新增的        
+        public string[] Dishes_Contain_Food_Value { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dishes_Contain_Food> Dishes_Contain_Food { get; set; }
         public virtual Manager Manager { get; set; }

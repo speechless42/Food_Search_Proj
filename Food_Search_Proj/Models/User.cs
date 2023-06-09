@@ -11,7 +11,7 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,14 +22,31 @@ namespace Food_Search_Proj.Models
             this.User_Collect_Combo = new HashSet<User_Collect_Combo>();
             this.User_Collect_Dishes = new HashSet<User_Collect_Dishes>();
         }
-    
+
+        [Required(ErrorMessage = "帳號不可空白")]
+        [Display(Name = "帳號")]
         public string User_ID { get; set; }
+        [Required(ErrorMessage = "密碼不可空白")]
+        [Display(Name = "密碼")]
         public string User_Password { get; set; }
+        [Display(Name = "確認密碼")]
+        [Compare("User_Password", ErrorMessage = "兩次輸入的密碼必須相符！")]
+        public string User_Password_Again { get; set; }
+        [Required(ErrorMessage = "暱稱不可空白")]
+        [Display(Name = "暱稱")]
         public string User_Nick_Name { get; set; }
+        [Required(ErrorMessage = "Email不可空白")]
+        [EmailAddress(ErrorMessage = "格式有誤！")]
+        [Display(Name = "信箱")]
         public string User_Mail { get; set; }
+        [Required(ErrorMessage = "手機號碼不可空白")]
+        [Phone(ErrorMessage = "格式有誤！")]
+        [StringLength(10, ErrorMessage = "電話格式錯誤！", MinimumLength = 10)]
+        [Display(Name = "電話")]
         public string User_Phone { get; set; }
+        [Display(Name = "生日")]
         public Nullable<System.DateTime> User_Birth { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dishes> Dishes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,7 +11,8 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Combo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +21,7 @@ namespace Food_Search_Proj.Models
             this.Set_Menu_Includes_Dishes = new HashSet<Set_Menu_Includes_Dishes>();
             this.User_Collect_Combo = new HashSet<User_Collect_Combo>();
         }
-    
+        
         public int Combo_ID { get; set; }
         public string Combo_Name { get; set; }
         public System.DateTime Combo_Date { get; set; }
