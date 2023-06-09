@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f3452dcadb7b490f83a5276b81011e9a" Name="Diagram1">
+        <EntityTypeShape EntityType="Food_searchModel.Categories_Of_Food" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Combo" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Dishes" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Dishes_Contain_Food" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Feedback_Article" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Food" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Manager" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.Set_Menu_Includes_Dishes" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.User" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.User_Collect_Combo" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Food_searchModel.User_Collect_Dishes" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="Food_searchModel.FK_Food_Categories_Of_Food" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Set_Menu_Includes_Dishes_Combo" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_User_Collect_Combo_Combo" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Dishes_Contain_Food_Dishes" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Dishes_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Dishes_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Set_Menu_Includes_Dishes_Dishes" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_User_Collect_Dishes_Dishes" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Dishes_Contain_Food_Food" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Feedback_Article_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_Feedback_Article_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_User_Collect_Combo_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Food_searchModel.FK_User_Collect_Dishes_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
