@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Article_ID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Article_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Article_ID, new { htmlAttributes = new { @class = "form-control" ,@Value = ViewBag.CAID } })
                 @Html.ValidationMessageFor(model => model.Article_ID, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Article_Text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Article_Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Article_Text, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Article_Text, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Article_Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Article_Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Article_Date, new { htmlAttributes = new { @class = "form-control" ,@type = "date" , @Value = System.DateTime.Today.ToString("yyyy-MM-dd") } })
                 @Html.ValidationMessageFor(model => model.Article_Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,26 +50,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Article_Review_Result, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Article_Review_Result, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Article_Review_Result, new { htmlAttributes = new { @class = "form-control" , @Value = 0} })
                 @Html.ValidationMessageFor(model => model.Article_Review_Result, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group">
             @Html.LabelFor(model => model.Article_User_ID, "Article_User_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Article_User_ID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.Article_User_ID ,new { htmlAttributes = new { @class = "form-control"  , @Value = ViewBag.user} })
                 @Html.ValidationMessageFor(model => model.Article_User_ID, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Article_Manager_ID, "Article_Manager_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Article_Manager_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Article_Manager_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         @*<div class="form-group">
             @Html.LabelFor(model => model.Article_Photo, htmlAttributes: new { @class = "control-label col-md-2" })

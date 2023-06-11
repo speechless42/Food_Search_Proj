@@ -282,6 +282,7 @@
     <Content Include="Views\User\ShowCombo.cshtml" />
     <Content Include="Views\User\ShowDishes.cshtml" />
     <Content Include="Views\User\CreateArticle.cshtml" />
+    <Content Include="Views\User\RecommendDishes.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

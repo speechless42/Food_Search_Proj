@@ -155,10 +155,64 @@ namespace Food_Search_Proj.Controllers
         //回饋文章
         public ActionResult CreateArticle()
         {
-
+            var CAID = 0;
+            if ((from id in DB.Feedback_Article select id.Article_ID).Any() == false)
+            {
+                ViewBag.CAID = CAID;
+            }
+            else
+            {
+                CAID = (from id in DB.Feedback_Article select id.Article_ID).Max();
+                CAID += 1;
+                ViewBag.CAID = CAID;
+            }
+            ViewBag.user = Session["user"].ToString();
             return View();
         }
+        [HttpPost]
+        public ActionResult CreateArticle(Feedback_Article feedback_Article)
+        {
+            DB.Feedback_Article.Add(feedback_Article);
+            DB.SaveChanges();
+            return RedirectToAction("ShowDishes");
+        }
 
+        //推薦菜餚
+        public ActionResult RecommendDishes()
+        {
+            var DishID = 0;
+            if ((from i in DB.Dishes select i.Dishes_ID).Any() == false)
+            {
+                ViewBag.DishID = 0;
+            }
+            else
+            {
+                DishID = (from i in DB.Dishes select i.Dishes_ID).Max();
+                DishID += 1;
+                ViewBag.DishID = DishID;
+            }
+            var DCFID = 0;
+            if ((from i in DB.Dishes_Contain_Food select i.DCF_ID).Any() == false)
+            {
+                ViewBag.DCFID = DCFID;
+            }
+            else
+            {
+                DCFID = (from i in DB.Dishes_Contain_Food select i.DCF_ID).Max();
+                DCFID += 1;
+                ViewBag.DCFID = DCFID;
+            }
+            Session["DishesID"] = DishID;
+            ViewBag.user = Session["user"].ToString();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RecommendDishes(Dishes dishes)
+        {
+            DB.Dishes.Add(dishes);
+            DB.SaveChanges();
+            return RedirectToAction("RecommendDishes");
+        }
     }
 
 }

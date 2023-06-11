@@ -23,7 +23,7 @@ namespace Food_Search_Proj.Models
             this.User_Collect_Dishes = new HashSet<User_Collect_Dishes>();
         }
 
-        [Display(Name = "菜餚名稱")]
+        [Display(Name = "菜餚編號")]
         [Required]
         public int Dishes_ID { get; set; }
         [Display(Name = "菜餚名稱")]
