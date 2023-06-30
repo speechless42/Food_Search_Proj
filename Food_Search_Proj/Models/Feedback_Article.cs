@@ -19,10 +19,10 @@ namespace Food_Search_Proj.Models
         [Required]
         public int Article_ID { get; set; }
         [Display(Name = "回饋文章標題")]
-        [Required]
+        [Required(ErrorMessage = "標題不得為空")]
         public string Article_Title { get; set; }
         [Display(Name = "回饋文章內容")]
-        [Required]
+        [Required(ErrorMessage = "請描述需改善內容")]
         public string Article_Text { get; set; }
         [Display(Name = "回饋文章日期")]
         [Required]

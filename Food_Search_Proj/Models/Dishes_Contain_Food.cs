@@ -11,6 +11,7 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
 
     public partial class Dishes_Contain_Food
@@ -19,10 +20,11 @@ namespace Food_Search_Proj.Models
         public int Food_ID { get; set; }
         public int DCF_ID { get; set; }
 
+        [Required(ErrorMessage = "請寫出該準備的食材及大概數量")]
         public string DishesContainFoodName { get; set; }
+        [Required(ErrorMessage = "請寫出該準備的食材及大概數量")]
         public string Count { get; set; }
 
-    
         public virtual Dishes Dishes { get; set; }
         public virtual Food Food { get; set; }
     }

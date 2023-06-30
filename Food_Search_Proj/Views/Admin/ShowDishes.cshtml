@@ -71,9 +71,9 @@
             @Html.DisplayFor(modelItem => item.User.User_Password)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditDishes", new { id=item.Dishes_ID }) |
+            @Html.ActionLink("編輯", "EditDishes", new { id=item.Dishes_ID }) |
             @*@Html.ActionLink("Details", "Details", new { id=item.Dishes_ID }) |*@
-            @Html.ActionLink("Delete", "DeleteDishes", new { id=item.Dishes_ID },new { onclick="return confirm('確定要刪除嗎?')"})
+            @Html.ActionLink("刪除", "DeleteDishes", new { id=item.Dishes_ID },new { onclick="return confirm('確定要刪除嗎?')"})
         </td>
     </tr>
 }

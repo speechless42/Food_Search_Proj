@@ -29,9 +29,9 @@
             @Html.DisplayFor(modelItem => item.Combo_Date)
         </td>
         <td>
-            @Html.ActionLink("Edit", "EditCombo", new { id=item.Combo_ID }) |
+            @Html.ActionLink("編輯", "EditCombo", new { id=item.Combo_ID }) |
             @*@Html.ActionLink("Details", "Details", new { id=item.Combo_ID }) |*@
-            @Html.ActionLink("Delete", "DeleteCombo", new { id=item.Combo_ID })
+            @Html.ActionLink("刪除", "DeleteCombo", new { id=item.Combo_ID }, new { onclick = "return confirm('確定要刪除嗎?')" })
         </td>
     </tr>
 }

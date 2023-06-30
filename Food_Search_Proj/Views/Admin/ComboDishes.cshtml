@@ -1,13 +1,13 @@
 ﻿@model Food_Search_Proj.Models.Set_Menu_Includes_Dishes
 
-<div class="border-1">
+
     @using (Html.BeginCollectionItem("Set_Menu_Includes_Dishes"))
     {
         <div>
             <div class="form-group">
-                @Html.LabelFor(model => model.SMID_ID, "SMID_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                @*@Html.LabelFor(model => model.SMID_ID, "SMID_ID", htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SMID_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.SMID_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.count, type = "hidden" } })
                     @Html.ValidationMessageFor(model => model.SMID_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -15,28 +15,41 @@
             <div class="form-group">
                 @Html.Label("菜餚選單號", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("SMIFName", null, new { Class = "form-control" })
+                    @Html.DropDownList("SMIFName", null, new { Class = "form-control", id = @ViewBag.BeSelsectDishes })
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Dishes_ID, "菜餚編號", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelsectDishes, type = "hidden" } })
                     @Html.ValidationMessageFor(model => model.Dishes_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Combo_ID, "套餐編號", htmlAttributes: new { @class = "control-label col-md-2" })
+                @*@Html.LabelFor(model => model.Combo_ID, "套餐編號", htmlAttributes: new { @class = "control-label col-md-2" })*@
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ComboID } })
+                    @Html.EditorFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ComboID, type = "hidden" } })
                     @Html.ValidationMessageFor(model => model.Combo_ID, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-
+            <div class="col-md-10">
+                <button onclick="$(this).parent().first().parent('div').remove();">刪除列</button>
+            </div>
         </div>
     }
 
-</div>
+
+
+<script>
+    $(function () {
+        $("#@ViewBag.BeSelsectDishes").change(function () {
+            console.log($(this).val());
+            ////$("#@ViewBag.SelsectFood").text($(this).val())
+            $("#@ViewBag.SelsectDishes").val( Number($(this).val()) )
+        });
+    });
+
+</script>

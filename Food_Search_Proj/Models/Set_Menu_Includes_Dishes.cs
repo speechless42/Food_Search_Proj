@@ -11,13 +11,16 @@ namespace Food_Search_Proj.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Set_Menu_Includes_Dishes
     {
         public int Combo_ID { get; set; }
         public Nullable<int> Dishes_ID { get; set; }
         public int SMID_ID { get; set; }
-        
+
+        [Required(ErrorMessage = "請寫出菜餚")]
         public string SMIFName { get; set; }
         public virtual Combo Combo { get; set; }
         public virtual Dishes Dishes { get; set; }

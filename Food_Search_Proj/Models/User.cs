@@ -23,23 +23,23 @@ namespace Food_Search_Proj.Models
             this.User_Collect_Dishes = new HashSet<User_Collect_Dishes>();
         }
 
-        [Required(ErrorMessage = "帳號不可空白")]
+        [Required(ErrorMessage = "此帳號不可用")]
         [Display(Name = "帳號")]
         public string User_ID { get; set; }
-        [Required(ErrorMessage = "密碼不可空白")]
+        [Required(ErrorMessage = "密碼需介於6~20字")]
         [Display(Name = "密碼")]
         public string User_Password { get; set; }
         [Display(Name = "確認密碼")]
         [Compare("User_Password", ErrorMessage = "兩次輸入的密碼必須相符！")]
         public string User_Password_Again { get; set; }
-        [Required(ErrorMessage = "暱稱不可空白")]
+        [Required(ErrorMessage = "請輸入暱稱")]
         [Display(Name = "暱稱")]
         public string User_Nick_Name { get; set; }
-        [Required(ErrorMessage = "Email不可空白")]
+        [Required(ErrorMessage = "請更改信箱")]
         [EmailAddress(ErrorMessage = "格式有誤！")]
         [Display(Name = "信箱")]
         public string User_Mail { get; set; }
-        [Required(ErrorMessage = "手機號碼不可空白")]
+        [Required(ErrorMessage = "請更改電話")]
         [Phone(ErrorMessage = "格式有誤！")]
         [StringLength(10, ErrorMessage = "電話格式錯誤！", MinimumLength = 10)]
         [Display(Name = "電話")]

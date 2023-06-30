@@ -5,8 +5,10 @@
 }
 <script>
     $(function () {
+        count = 0;
         $("#AddRow").click(function () {
-            $.get("../Admin/DishesOfFood", function (template) {
+            count++;
+            $.get("../Admin/DishesOfFood", { count: count }, function (template) {
                 $("#AddDiv").append(template)
             });
     });
@@ -14,6 +16,7 @@
 
 </script>
 <h2>RecommendDishes</h2>
+
 
 
 @using (Html.BeginForm()) 
@@ -25,9 +28,9 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Dishes_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.Dishes_ID, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DishID } })
+            @Html.EditorFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DishID , type="hidden"  } })
             @Html.ValidationMessageFor(model => model.Dishes_ID, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -48,17 +51,16 @@
         </div>
     </div>
 
-    <span>新增編號最底號請以 @ViewBag.DCFID + 1  續增</span>
     <div><input type="button" value="新增列" id="AddRow" /></div>
     <div id="AddDiv"></div>
 
-    @*<div class="form-group">
+    <div class="form-group">
             @Html.LabelFor(model => model.Dishes_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Photo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        <div class="col-md-10">
+            <input type="file" name="file" class="form-control" v-on:change="PickFile" />
+            @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
+        </div>
+        </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Dishes_Remark, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -69,37 +71,20 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Dishes_Recommend_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.Food_Review_Result, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Dishes_Recommend_Date, new { htmlAttributes = new { @class = "form-control", @type = "date", @Value = System.DateTime.Today.ToString("yyyy-MM-dd") } })
-            @Html.ValidationMessageFor(model => model.Dishes_Recommend_Date, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Food_Review_Result, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Food_Review_Result, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+            @Html.EditorFor(model => model.Food_Review_Result, new { htmlAttributes = new { @class = "form-control", @Value = 0,type = "hidden" } })
             @Html.ValidationMessageFor(model => model.Food_Review_Result, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Referral_User_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*@Html.LabelFor(model => model.Referral_User_ID, htmlAttributes: new { @class = "control-label col-md-2" })*@
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Referral_User_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.user } })
+            @Html.EditorFor(model => model.Referral_User_ID, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.user , type="hidden"} })
             @Html.ValidationMessageFor(model => model.Referral_User_ID, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Review_Manager_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Review_Manager_ID, new { htmlAttributes = new { @class = "form-control", @Value = "Root" } })
-            @Html.ValidationMessageFor(model => model.Review_Manager_ID, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

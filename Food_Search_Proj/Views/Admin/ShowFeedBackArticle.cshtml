@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Food_Search_Proj.Models.Feedback_Article>
+
+@{
+    ViewBag.Title = "ShowFeedBackArticle";
+}
+
+<h2>ShowFeedBackArticle</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Article_Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Article_Review_Result)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article_Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Article_Review_Result)
+        </td>
+        <td>
+            @Html.ActionLink("詳細", "Edit", new { id=item.Article_ID }) |
+
+        </td>
+    </tr>
+}
+
+</table>

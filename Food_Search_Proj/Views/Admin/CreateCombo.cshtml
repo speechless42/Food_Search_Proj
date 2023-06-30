@@ -5,8 +5,10 @@
 }
 <script>
     $(function () {
+        let count = 0;
         $("#AddRow1").click(function () {
-            $.get("/Admin/ComboDishes", function (template) {
+            count++;
+            $.get("/Admin/ComboDishes", { count: count }, function (template) {
                 $("#AddDiv1").append(template)
             });
     });

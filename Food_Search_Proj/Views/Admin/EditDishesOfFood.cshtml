@@ -1,0 +1,59 @@
+﻿@model Food_Search_Proj.Models.Dishes_Contain_Food
+@{
+    string ID = Model.DCF_ID.ToString();
+    ViewBag.BeSelsectFood = "BeSelsectFood" + ID;
+    ViewBag.SelectFood = "SelectFood" + ID;
+}
+@using (Html.BeginCollectionItem("Dishes_Contain_Food"))
+{
+
+    <div class="form-horizontal" style="border-style:double" id="app1">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.DCF_ID)
+
+        <div class="form-group">
+            @Html.Label("食材選單號", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DishesContainFoodName", (IEnumerable<SelectListItem>)Session["DishesContainFoodName"], new { Class = "form-control", id = @ViewBag.BeSelsectFood, Value = Model.Food_ID.ToString() })
+                @*@Html.ValidationMessageFor(model => model.DishesContainFoodName, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Food_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Food_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelectFood } })
+                @Html.ValidationMessageFor(model => model.Food_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Dishes_ID)
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <button onclick="$(this).parent().first().parent('div').remove();">刪除列</button>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        $("#@ViewBag.BeSelsectFood").change(function () {
+            console.log($(this).val());
+            ////$("#@ViewBag.SelsectFood").text($(this).val())
+            $("#@ViewBag.SelectFood").val( Number($(this).val()) )
+        });
+    });
+</script>
+
+
+

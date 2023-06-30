@@ -1,100 +1,77 @@
 ﻿@model Food_Search_Proj.Models.Dishes
-
 @{
     ViewBag.Title = "EditDishes";
 }
 
 <h2>EditDishes</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Dishes</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Dishes_ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-horizontal" id="app">
+    <h4>Dishes</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Dishes_ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_Methods, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Methods, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Methods, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Photo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_Remark, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Remark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Remark, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_Recommend_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_Recommend_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dishes_Recommend_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Food_Review_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Food_Review_Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Food_Review_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Food_Review_Result, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Food_Review_Result, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Food_Review_Result, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Referral_User_ID, "Referral_User_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Referral_User_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Referral_User_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Review_Manager_ID, "Review_Manager_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Review_Manager_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Review_Manager_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Dishes_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Dishes_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dishes_Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @{
+        foreach (var item in Model.Dishes_Contain_Food)
+        {
+            Html.RenderPartial("EditDishesOfFood", item);
+        }
+    }
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Dishes_Methods, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Dishes_Methods, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dishes_Methods, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Dishes_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="File" name="File" class="form-control" v-on:change="PickFile" />
+            @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.Dishes_Remark)
+    @Html.HiddenFor(model => model.Dishes_Recommend_Date)
+    @Html.HiddenFor(model => model.Food_Review_Date)
+    @Html.HiddenFor(model => model.Food_Review_Result)
+    @Html.HiddenFor(model => model.Referral_User_ID)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Dishes_Methods, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Review_Manager_ID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Dishes_Methods, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="更改" class="btn btn-default" />
+        </div>
+    </div>
+
+    <img v-if="image" :src="image" width="200" />
+
+</div>
 }
 
 <div>
@@ -104,3 +81,28 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script>
+    const { createApp } = Vue
+
+    createApp({
+        data() {
+            return {
+                image: "",
+                selected: ""
+            }
+        },
+        methods: {
+            PickFile: function (e) {
+                const file = e.target.files.item(0);
+                const reader = new FileReader();
+                reader.addEventListener('load', this.imageLoaded);
+                reader.readAsDataURL(file);
+            },
+            imageLoaded: function (e) {
+                this.image = e.target.result;
+            }
+
+        }
+    }).mount('#app')
+</script>

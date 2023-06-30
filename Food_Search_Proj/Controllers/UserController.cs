@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -134,6 +135,10 @@ namespace Food_Search_Proj.Controllers
         //收藏菜餚
         public ActionResult CollectDishes(int id)
         {
+            if (DB.Dishes.Where(m => m.Dishes_ID == id).Any() == true)
+            {
+                return Content("<script language='javascript' type='text/javascript'>alert('擬以收藏過');</script>");
+            }
             var UCDID = 0;
             if ((from i in DB.User_Collect_Dishes select i.UCD_ID).Any() == false)
             {
@@ -155,23 +160,37 @@ namespace Food_Search_Proj.Controllers
         //回饋文章
         public ActionResult CreateArticle()
         {
+            //使用者先登入
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateArticle(Feedback_Article feedback_Article , HttpPostedFileBase File)
+        {
+            //ID 自動配置
             var CAID = 0;
             if ((from id in DB.Feedback_Article select id.Article_ID).Any() == false)
             {
-                ViewBag.CAID = CAID;
+                CAID = 0;
             }
             else
             {
                 CAID = (from id in DB.Feedback_Article select id.Article_ID).Max();
                 CAID += 1;
-                ViewBag.CAID = CAID;
             }
-            ViewBag.user = Session["user"].ToString();
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateArticle(Feedback_Article feedback_Article)
-        {
+            feedback_Article.Article_ID = CAID;
+            //時間自動配置
+            feedback_Article.Article_Date = DateTime.Now;
+            //審核狀態自動配置
+            feedback_Article.Article_Review_Result = 0;
+            //使用者名稱自動配置
+            feedback_Article.Article_User_ID = Session["user"].ToString();
+            //照片處裡
+            
+            //全體存入資料庫
             DB.Feedback_Article.Add(feedback_Article);
             DB.SaveChanges();
             return RedirectToAction("ShowDishes");
@@ -180,6 +199,11 @@ namespace Food_Search_Proj.Controllers
         //推薦菜餚
         public ActionResult RecommendDishes()
         {
+            //使用者先登入
+            if (Session["user"] == null)
+            {
+                return RedirectToAction("Index");
+            }
             var DishID = 0;
             if ((from i in DB.Dishes select i.Dishes_ID).Any() == false)
             {
@@ -191,17 +215,6 @@ namespace Food_Search_Proj.Controllers
                 DishID += 1;
                 ViewBag.DishID = DishID;
             }
-            var DCFID = 0;
-            if ((from i in DB.Dishes_Contain_Food select i.DCF_ID).Any() == false)
-            {
-                ViewBag.DCFID = DCFID;
-            }
-            else
-            {
-                DCFID = (from i in DB.Dishes_Contain_Food select i.DCF_ID).Max();
-                DCFID += 1;
-                ViewBag.DCFID = DCFID;
-            }
             Session["DishesID"] = DishID;
             ViewBag.user = Session["user"].ToString();
             return View();
@@ -209,10 +222,14 @@ namespace Food_Search_Proj.Controllers
         [HttpPost]
         public ActionResult RecommendDishes(Dishes dishes)
         {
+
+            dishes.Dishes_Recommend_Date = DateTime.Now;
+            dishes.Review_Manager_ID = "Root";
             DB.Dishes.Add(dishes);
             DB.SaveChanges();
             return RedirectToAction("RecommendDishes");
         }
+
     }
 
 }

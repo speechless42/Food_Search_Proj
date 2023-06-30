@@ -27,10 +27,10 @@ namespace Food_Search_Proj.Models
         [Required]
         public int Dishes_ID { get; set; }
         [Display(Name = "菜餚名稱")]
-        [Required]
+        [Required(ErrorMessage ="菜餚名稱不得為空")]
         public string Dishes_Name { get; set; }
         [Display(Name = "烹調辦法")]
-        [Required]
+        [Required(ErrorMessage = "請描述如和烹飪")]
         public string Dishes_Methods { get; set; }
         [Display(Name = "菜餚照片")]
         public byte[] Dishes_Photo { get; set; }
