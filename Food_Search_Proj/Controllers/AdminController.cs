@@ -403,5 +403,8 @@ namespace Food_Search_Proj.Controllers
             var NoResultDishes = DB.Dishes.Where(m => m.Food_Review_Result == 0).OrderByDescending(m => m.Dishes_ID).ToList();
             return View(NoResultDishes);
         }
+        ///////////////
+        //審核未審核菜餚
+        public ActionResult EDishes() { return View(); }    
     }
 }
