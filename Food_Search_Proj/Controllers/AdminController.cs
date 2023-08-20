@@ -16,6 +16,10 @@ namespace Food_Search_Proj.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             return View();
         }
 
@@ -134,7 +138,7 @@ namespace Food_Search_Proj.Controllers
             }
             Session.Clear();
             Session["user"] = ID;
-            return RedirectToAction("PASS");
+            return RedirectToAction("Index");
         }
         ///////////////
         //管理者更改密碼
@@ -196,8 +200,14 @@ namespace Food_Search_Proj.Controllers
 
         }
         [HttpPost]
-        public ActionResult CreateDishes(Dishes dishes)
+        public ActionResult CreateDishes(Dishes dishes,HttpPostedFileBase image)
         {
+            if (ModelState.IsValid) { 
+            if(image != null)
+            {
+                dishes.Dishes_Photo = new byte[image.ContentLength];
+                image.InputStream.Read(dishes.Dishes_Photo, 0, image.ContentLength);
+            }
             //自動填審核管理員帳號
             dishes.Review_Manager_ID = Session["user"].ToString();
             dishes.Referral_User_ID = Session["user"].ToString();
@@ -209,6 +219,8 @@ namespace Food_Search_Proj.Controllers
             DB.Dishes.Add(dishes);
             DB.SaveChanges();
             return RedirectToAction("PASS");
+            }
+            return RedirectToAction("Loss");
         }
         ///////////////
         //菜餚中的食材
@@ -261,8 +273,13 @@ namespace Food_Search_Proj.Controllers
             return View(dishes);
         }
         [HttpPost]
-        public ActionResult EditDishes(Dishes dishes)
+        public ActionResult EditDishes(Dishes dishes,HttpPostedFileBase image)
         {
+            if (image != null)
+            {
+                dishes.Dishes_Photo = new byte[image.ContentLength];
+                image.InputStream.Read(dishes.Dishes_Photo, 0, image.ContentLength);
+            }
             Dishes Editdishe = DB.Dishes.Where(m => m.Dishes_ID == dishes.Dishes_ID).FirstOrDefault();
             //Editdishe.Dishes_Name = dishes.Dishes_Name;
             //Editdishe.Dishes_Methods = dishes.Dishes_Methods;
@@ -405,6 +422,7 @@ namespace Food_Search_Proj.Controllers
         }
         ///////////////
         //審核未審核菜餚
-        public ActionResult EDishes() { return View(); }    
+        public ActionResult EDishes() { return View(); }   
+        
     }
 }

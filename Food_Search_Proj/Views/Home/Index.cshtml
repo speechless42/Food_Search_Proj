@@ -1,33 +1,186 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿
+<div>
+    <main>
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+        <div class="page-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 py-2">
+                        <div class="subhead"></div>
+                        <h2 style="font-family:DFKai-sb; text-decoration:underline; margin-right:4px;">吃自己喜歡的東西，<br />變成自己喜歡的樣子！</h2>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
-</main>
+                        <h2>
+                            為自己做飯，
+                            <br />　　就是照顧好自己。
+                        </h2>
+
+                    </div>
+                    <div class="col-lg-4 py-2">
+                        <div class="about-img">
+                            <img src="~/img/about-img.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- .page-section -->
+
+
+        <div class="page-section">
+            <div class="container">
+                @*<div class="text-center">
+                    <div class="subhead">Our Services</div>
+                    <h2 class="title-section">See what can we do for your Projects</h2>
+                </div>*@
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                        <div class="text-center">
+                            <div class="img-fluid mb-4">
+                                <img src="~/img/icons/data_analyst.svg" alt="">
+                            </div>
+                            <h5>查看食譜</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                        <div class="text-center">
+                            <div class="img-fluid mb-4">
+                                <img src="~/img/icons/graphics_design.svg" alt="">
+                            </div>
+                            <h5>推薦菜餚 </h5>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                        <div class="text-center">
+                            <div class="img-fluid mb-4">
+                                <img src="~/img/icons/customer_services.svg" alt="">
+                            </div>
+                            <h5>回饋文章</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                        <div class="text-center">
+                            <div class="img-fluid mb-4">
+                                <img src="~/img/icons/app_development.svg" alt="">
+                            </div>
+                            <h5>收藏喜愛菜餚</h5>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div> <!-- .container -->
+        </div> <!-- .page-section -->
+
+
+        <div class="row" style="margin-top:10px;">
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <img src="~/img/barts.jpg" style="width:200px;height:270px;">
+                </div>
+                <div class="body">
+                    <div class="post-title"><a href="blog-single.html">消暑計畫</a></div>
+                    <div class="post-excerpt">在熱到讓人快融化的夏天裡，自己動手做夏日消暑聖品，不僅不用擔心衛生問題，更沒有添加物的負擔！.</div>
+                </div>
+                <div class="footer">
+                    <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <img src="~/img/leong.jpg" style="width:200px;height:270px;">
+                </div>
+                <div class="body">
+                    <div class="post-title"><a href="blog-single.html">異國料理</a></div>
+                    <div class="post-excerpt">最期待的就是有個完整假期可以出國放鬆旅遊，如何在短時間內可以快速遨遊世界？</div>
+                </div>
+                <div class="footer">
+                    <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <img src="~/img/valeria.jpg" style="width:200px;height:270px;">
+                </div>
+                <div class="body">
+                    <div class="post-title"><a href="blog-single.html">中式料理</a></div>
+                    <div class="post-excerpt">下班的爸爸帶著小孩的親子晚餐、全家人的溫馨團聚，而陪伴著他們的，是一道道開胃下飯、獨具特色的料理</div>
+                </div>
+                <div class="footer">
+                    <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+                </div>
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <img src="~/img/polina.jpg" style="width:200px;height:270px;">
+                </div>
+                <div class="body">
+                    <div class="post-title"><a href="blog-single.html">健身料理</a></div>
+                    <div class="post-excerpt">幫助減脂、增肌，低GI、高蛋白兩大飲食原則吃，就能吃得豐富又滿足！</div>
+                </div>
+                <div class="footer">
+                    <a href="blog-single.html">Read More <span class="mai-chevron-forward text-sm"></span></a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="page-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    @*<div class="col-md-6 py-3">
+                        <div class="subhead">Portfolio</div>
+                        <h2 class="title-section">Our Latest Projects</h2>
+                    </div>
+                    <div class="col-md-6 py-3 text-md-right">
+                        <a href="portfolio.html" class="btn btn-outline-primary">Browse Projects <span class="mai-arrow-forward ml-2"></span></a>
+                    </div>*@
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-4 py-3">
+                        <div class="portfolio">
+                            <a href="~/img/hot-1.png" data-fancybox="portfolio">
+                                <img src="~/img/hot-1.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 py-3">
+                        <div class="portfolio">
+                            <a href="~/img/hot-2.png" data-fancybox="portfolio">
+                                <img src="~/img/hot-2.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 py-3">
+                        <div class="portfolio">
+                            <a href="~/img/hot-3.png" data-fancybox="portfolio">
+                                <img src="~/img/hot-3.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .container -->
+        </div> <!-- .page-section -->
+        <!-- Testimonials -->
+
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-primary px-5">TOP</button>
+        </div>
+    </main>
+</div>
+    

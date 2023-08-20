@@ -1,6 +1,7 @@
 ﻿@model Food_Search_Proj.Models.Dishes
 
 @{
+    Layout = "../Shared/_LayoutUser.cshtml";
     ViewBag.Title = "RecommendDishes";
 }
 <script>
@@ -19,7 +20,7 @@
 
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("RecommendDishes", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -57,7 +58,7 @@
     <div class="form-group">
             @Html.LabelFor(model => model.Dishes_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="file" class="form-control" v-on:change="PickFile" />
+            <input type="file" name="image"id="image" class="form-control" v-on:change="PickFile" />
             @Html.ValidationMessageFor(model => model.Dishes_Photo, "", new { @class = "text-danger" })
         </div>
         </div>

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("線上食譜-管理員專區", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("產品列表", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+                    <li class="nav-item dropdown adminddl">
+                        <a class="nav-link dropdown-toggle" href="#"
+                           id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">食材</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="~/Admin/CreateCategoriesFood">新增類別</a>
+                            <a class="dropdown-item" href="~/Admin/DishesOfFood">顯示食材</a>
+                            <a class="dropdown-item" href="~/Admin/CreateFood">新增食材</a>
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item dropdown adminddl">
+                        <a class="nav-link dropdown-toggle" href="#"
+                           id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">菜餚</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="~/Admin/ShowDishes">顯示菜餚</a>
+                            <a class="dropdown-item" href="~/Admin/EditDishes">編輯菜餚</a>
+                            <a class="dropdown-item" href="~/Admin/CreateDishes">新增菜餚</a>
+                            <a class="dropdown-item" href="~/Admin/EditDishesOfFood">編輯菜餚的食材</a>
+                            <a class="dropdown-item" href="~/Admin/DeleteDishes">刪除菜餚</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown adminddl">
+                        <a class="nav-link dropdown-toggle" href="#"
+                           id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">套餐</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" href="~/Admin/ShowCombo">顯示套餐</a>
+                            <a class="dropdown-item" href="~/Admin/CreateCombo">建立套餐</a>
+                            <a class="dropdown-item" href="~/Admin/EditCombo">編輯套餐</a>
+                            <a class="dropdown-item" href="~/Admin/EditComboDishes">編輯套餐的菜餚</a>
+                            <a class="dropdown-item" href="~/Admin/DeleteCombo">刪除套餐</a>
+                        </div>
+                    </li>
+
+
+                    <li>@Html.ActionLink("列出新的回饋文章", "ShowFeedBackArticle", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("列出新的未審核菜餚", "ShowNoResultDishes", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("更改密碼", "ChangePassword", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+    <script>$(document).ready(function () {
+            $('.adminddl').hover(function () {
+                $(this).find('.dropdown-menu').toggleClass("show");
+            });
+        });</script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

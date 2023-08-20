@@ -1,4 +1,5 @@
 ﻿@{
+    Layout = "../Shared/_LayoutUser.cshtml";
     ViewBag.Title = "User_Sign_In";
 }
 
@@ -22,6 +23,9 @@
 
     <div>
         <input type="submit" value="提交" />
+    </div>
+    <div>
+        @Html.ActionLink("管理者登入", "Login", "Admin", new { area = "" }, new { @class = "nav-link" })
     </div>
 }
 <div class="text-danger">

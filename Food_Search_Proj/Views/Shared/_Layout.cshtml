@@ -14,16 +14,17 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
-            @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("線上食譜", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("首頁", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("關於", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("連絡人", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("顯示菜餚", "ShowDishes", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("顯示套餐", "ShowCombo", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("註冊", "User_Sign_Up", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("登入", "User_Sign_In", "User", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
@@ -35,6 +36,13 @@
             <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
         </footer>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.adminddl').hover(function () {
+                $(this).find('.dropdown-menu').toggleClass("show");
+            });
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

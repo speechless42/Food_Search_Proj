@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "ChangeAccountDetail1";
+}
+
+<h2>ChangeAccountDetail1</h2>
+
+@using (Html.BeginForm("ChangeAccountDetail1", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="text" name="pwd" id="pwd" />
+    <input type="submit" value="提交" />
+}

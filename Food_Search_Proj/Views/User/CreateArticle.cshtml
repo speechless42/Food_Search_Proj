@@ -1,12 +1,13 @@
 ﻿@model Food_Search_Proj.Models.Feedback_Article
 
 @{
+    Layout = "../Shared/_LayoutUser.cshtml";
     ViewBag.Title = "CreateArticle";
 }
 
 <h2>CreateArticle</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("CreateArticle", "User", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -34,7 +35,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Article_Photo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="File" class="form-control" v-on:change="PickFile" />
+            <input type="file" name="image" id="image" class="form-control" v-on:change="PickFile" />
             @Html.ValidationMessageFor(model => model.Article_Photo, "", new { @class = "text-danger" })
         </div>
     </div>

@@ -216,6 +216,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\about-img.jpg" />
+    <Content Include="img\barts.jpg" />
+    <Content Include="img\bruno.jpg" />
+    <Content Include="img\leong.jpg" />
+    <Content Include="img\pixabay.jpg" />
+    <Content Include="img\polina.jpg" />
+    <Content Include="img\rajesh-.jpg" />
+    <Content Include="img\snapwire.jpg" />
+    <Content Include="img\valeria.jpg" />
     <Content Include="Models\FDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FDModel.Context.cs</LastGenOutput>
@@ -261,8 +270,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Admin\CreateCategoriesFood.cshtml" />
     <Content Include="Views\Admin\CreateFood.cshtml" />
@@ -287,6 +294,14 @@
     <Content Include="Views\Admin\EditComboDishes.cshtml" />
     <Content Include="Views\Admin\ShowFeedBackArticle.cshtml" />
     <Content Include="Views\Admin\ShowNoResultDishes.cshtml" />
+    <Content Include="Views\User\ChangeAccountDetail.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\ChangeAccountDetail1.cshtml" />
+    <Content Include="Views\User\ChangeAccountDetail2.cshtml" />
+    <Content Include="Views\User\Pass.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

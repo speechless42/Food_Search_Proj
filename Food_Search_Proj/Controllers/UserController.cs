@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -168,8 +169,14 @@ namespace Food_Search_Proj.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateArticle(Feedback_Article feedback_Article , HttpPostedFileBase File)
+        public ActionResult CreateArticle(Feedback_Article feedback_Article , HttpPostedFileBase image)
         {
+            //if (!ModelState.IsValid) { return  View(feedback_Article); }
+            if( image != null)
+            {
+                feedback_Article.Article_Photo = new byte[image.ContentLength];
+                image.InputStream.Read(feedback_Article.Article_Photo, 0, image.ContentLength);
+            }
             //ID 自動配置
             var CAID = 0;
             if ((from id in DB.Feedback_Article select id.Article_ID).Any() == false)
@@ -220,9 +227,14 @@ namespace Food_Search_Proj.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult RecommendDishes(Dishes dishes)
+        public ActionResult RecommendDishes(Dishes dishes,HttpPostedFileBase image)
         {
-
+            //if (!ModelState.IsValid) { return  View(); }
+            if (image != null)
+            {
+                dishes.Dishes_Photo = new byte[image.ContentLength];
+                image.InputStream.Read(dishes.Dishes_Photo, 0, image.ContentLength);
+            }
             dishes.Dishes_Recommend_Date = DateTime.Now;
             dishes.Review_Manager_ID = "Root";
             DB.Dishes.Add(dishes);
@@ -230,6 +242,39 @@ namespace Food_Search_Proj.Controllers
             return RedirectToAction("RecommendDishes");
         }
 
+        //更改帳戶資訊
+        public ActionResult ChangeAccountDetail1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangeAccountDetail1(string pwd)
+        {
+            string ID = Session["user"].ToString();
+            var correct = DB.User.Where(m => m.User_ID == ID && m.User_Password == pwd).FirstOrDefault();
+            if (correct == null) { 
+                return RedirectToAction("Index");
+            }
+            
+            return RedirectToAction("ChangeAccountDetail2");
+        }
+        public ActionResult ChangeAccountDetail2()
+        {
+            string ID = Session["user"].ToString();
+            User user = DB.User.Where(m => m.User_ID == ID).FirstOrDefault();
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult ChangeAccountDetail2(User user) {
+            user.User_Password_Again = user.User_Password;
+            DB.Entry(user).State = EntityState.Modified;
+            DB.SaveChanges();
+            return RedirectToAction("Pass");
+        }
+        public ActionResult Pass()
+        {
+            return View();
+        }
     }
 
 }

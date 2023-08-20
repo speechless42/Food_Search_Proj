@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("線上食譜-會員專區", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="切換導覽" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("產品列表", "Index", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("顯示菜餚", "ShowDishes", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("顯示套餐", "ShowCombo", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("收藏套餐", "CollectCombo", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("收藏菜餚", "CollectDishes", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("更改帳戶資訊", "ChangeAccountDetail1", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("登出", "Logout", "User")</li>
+                    @*<li><a href="#">@Session["WelCome"]</a></li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Food_Search_Proj.Models.Dishes>
 
 @{
+    Layout = "../Shared/_LayoutAdmin.cshtml";
     ViewBag.Title = "ShowDishes";
 }
 
@@ -50,7 +51,7 @@
             @Html.DisplayFor(modelItem => item.Dishes_Methods)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Photo)
+            <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="100px" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Dishes_Remark)
