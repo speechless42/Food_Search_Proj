@@ -1,16 +1,42 @@
 ﻿@model IEnumerable<Food_Search_Proj.Models.Dishes>
-
 @{
     Layout = "../Shared/_LayoutAdmin.cshtml";
     ViewBag.Title = "ShowDishes";
 }
 
-<h2>ShowDishes</h2>
+@*<div class="container-fluid  text-primary py-5 text-center wow fadeIn">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+    <h2>食譜管理</h2>
+*@
+<div class="page-section">
+    <div class="container">
+        <div class="row align-items-center" style="border: 4px gray dashed; padding: 6px; background-color: #fafafa; font-family: DFKai-sb">
+            <div class="col-lg-3 py-2">
+                <div class="about-img">
+                    <img src="~/img/yente.jpg" width="200">
+                </div>
+            </div>
+            <div class="col-lg-9 py-2">
+                <h2 style="font-family:DFKai-sb;  margin-right:4px;">
+                    食譜料理
+                </h2>
+                <br>
+                <h4>
+                    料理是一件很神奇的事，將大小各異、口感不同的食材攬在一起，經過一番烹煮之後完成一道美味佳餚。這之間的療癒過程只有喜歡親手做飯的人才會懂，而根據觀察，熱愛下廚的人有著許多令人喜愛的特質，其實在朋友眼裡，常親自料理的人都非常有魅力。
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p style="text-align:right">
+    @Html.ActionLink("新增菜餚", "CreateDishes")
 </p>
-<table class="table">
+@*<div class="col-12 mt-3" style="text-align: right">
+        <a href="CreateDishes" type="submit" class="btn btn-light" style="color:dimgrey"> + 新增菜餚</a>
+    </div>*@
+
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Dishes_Name)
@@ -40,43 +66,122 @@
             @Html.DisplayNameFor(model => model.User.User_Password)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Methods)
-        </td>
-        <td>
-            <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="100px" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Remark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Food_Review_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Food_Review_Result)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.User_Password)
-        </td>
-        <td>
-            @Html.ActionLink("編輯", "EditDishes", new { id=item.Dishes_ID }) |
-            @*@Html.ActionLink("Details", "Details", new { id=item.Dishes_ID }) |*@
-            @Html.ActionLink("刪除", "DeleteDishes", new { id=item.Dishes_ID },new { onclick="return confirm('確定要刪除嗎?')"})
-        </td>
-    </tr>
+@*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dishes_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dishes_Methods)
+                </td>
+                <td>
+                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dishes_Remark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Food_Review_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Food_Review_Result)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.User_Password)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "EditDishes", new { id = item.Dishes_ID }) |
+                    @Html.ActionLink("刪除", "DeleteDishes", new { id = item.Dishes_ID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+
+
+
+@foreach (var item in Model)
+{
+    <div class="page-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 py-2">
+                    <div class="about-img">
+                        <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="200" />
+                    </div>
+                </div>
+                <div class="col-lg-7 py-2">
+                    <div class="subhead"></div>
+                    <div>
+                        <h2 style="font-family:DFKai-sb">  @Html.DisplayFor(modelItem => item.Dishes_Name)</h2>
+                    </div>
+                    <div>
+                        <label>食材：</label>
+                        @foreach(var items in item.Dishes_Contain_Food)
+                         {
+                            <span>@items.Food.Food_Name,</span>
+                         }
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Dishes_Methods)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Review_Manager_ID)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Dishes_Remark)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Dishes_Recommend_Date)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Manager.Manager_Password)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Food_Review_Date)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Food_Review_Result)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Food_Review_Result)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Manager.Manager_Password)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
+                    </div>
+                    <div>
+                        <a style="font-weight: bold">@Html.DisplayNameFor(model => model.User.User_Password) </a>
+                        @Html.DisplayFor(modelItem => item.User.User_Password)
+                    </div>
+
+                    <div style="text-align: right" class="col-12 mt-3">
+                        @Html.ActionLink("編輯", "EditDishes", new { id = item.Dishes_ID }) |
+                        @Html.ActionLink("詳細", "DetailsDishes", new { id = item.Dishes_ID }) |
+                        @Html.ActionLink("刪除", "DeleteDishes", new { id = item.Dishes_ID }, new { onclick = "return confirm('確定要刪除嗎?')" })
+                        @*<a href="EditDishes" type="submit" class="btn btn-light" style="color:dimgrey"> * 編輯菜餚</a>
+            <a href="DeleteDishes" type="submit" class="btn btn-light" style="color:dimgrey"> - 刪除菜餚</a>
+            <a href="AdminDishes" type="submit" class="btn btn-light" style="color:dimgrey"> ＊ 詳情</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
 }
 
-</table>

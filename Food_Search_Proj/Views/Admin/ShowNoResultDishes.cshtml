@@ -5,13 +5,77 @@
     ViewBag.Title = "ShowNoResultDishes";
 }
 
-<h2>ShowNoResultDishes</h2>
+<style>
+    .div-all {
+        width: 385px;
+        background: white;
+        margin-top: 10px;
+        margin-left: 10px;
+        display: inline-block;
+        border-bottom: 1px solid grey;
+        border-style: outset;
+    }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
+    .div-Name {
+        height: 90%;
+    }
+
+
+    .div-Date {
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+        overflow: hidden;
+        font-family: DFKai-sb;
+    }
+
+    .div-Methods {
+        height: 100%;
+        float: left;
+        margin-left: 10px;
+        overflow: hidden;
+    }
+
+    .div-Name h2 {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: dimgrey;
+    }
+    /*
+    .div-Link {
+        border-style: outset;
+        line-clamp: initial;
+        float: right;
+    }*/
+</style>
+<div class="page-section">
+    <div class="container">
+        <div class="row align-items-center " style="border: 4px gray dashed; padding: 6px; background-color: #fafafa; font-family: DFKai-sb ">
+            <div class="col-lg-3 py-2">
+                <div class="about-img">
+                    <img src="~/img/yente.jpg" width="200">
+                </div>
+            </div>
+            <div class="col-lg-9 py-2">
+                <h2 style="font-family:DFKai-sb;  margin-right:4px;">
+                    審核菜餚
+                </h2>
+                <br>
+                <h4>
+                    使用者推薦的菜餚尚未審核區
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+@*<tr class="tab-content">
         <th>
             @Html.DisplayNameFor(model => model.Dishes_Name)
         </th>
@@ -19,29 +83,63 @@
             @Html.DisplayNameFor(model => model.Food_Review_Result)
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Dishes_Contain_Food.Food_ID)*@
+            @Html.DisplayNameFor(model => model.Referral_User_ID)
+            @Html.DisplayNameFor(model => model.Dishes_Contain_Food.Food_ID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Referral_User_ID)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Dishes_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Food_Review_Result)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Referral_User_ID)
-        </td>
-        <td>
-            @Html.ActionLink("詳細", "Edit", new { id=item.Dishes_ID })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    @*<tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dishes_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Food_Review_Result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Referral_User_ID)
+            </td>
+            <td>
+                @Html.ActionLink("詳細", "Edit", new { id = item.Dishes_ID })
+            </td>
+        </tr>*@
+
+
+
+    <div class="div-all">
+        <div href="#" class="row align-items-center">
+            <div class="div-Name">
+                <h2 class="text-center wow fadeIn">
+                    @Html.DisplayFor(modelItem => item.Dishes_Name)
+                </h2>
+            </div>
+            <p></p>
+            <div class="div-Date">
+                <div>
+                    審核狀態:
+                    @Html.DisplayFor(modelItem => item.Food_Review_Result)
+                </div>
+                <div>
+                    推薦者：
+                    @Html.DisplayFor(modelItem => item.Referral_User_ID)
+                </div>
+                <div>
+                    推薦時間：
+                    @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
+                </div>
+            </div>
+            <div class="div-Methods">
+                料理方式：
+                @Html.DisplayFor(modelItem => item.Dishes_Methods)
+            </div>
+            <div class="col-12 mt-3 div-Link" style="text-align: right">
+                @Html.ActionLink("詳細", "Edit", new { id = item.Dishes_ID })
+            </div>
+        </div>
+    </div>
+
 }
-
-</table>

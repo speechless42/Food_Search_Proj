@@ -36,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Dishes_Methods, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Dishes_Methods, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.Dishes_Methods, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Dishes_Methods, "", new { @class = "text-danger" })
         </div>
     </div>

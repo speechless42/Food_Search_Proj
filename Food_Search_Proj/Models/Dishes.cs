@@ -12,6 +12,7 @@ namespace Food_Search_Proj.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.UI.WebControls;
 
     public partial class Dishes
     {
@@ -48,7 +49,8 @@ namespace Food_Search_Proj.Models
         public string Referral_User_ID { get; set; }
         [Display(Name = "審核菜餚的管理者名稱")]
         public string Review_Manager_ID { get; set; }
-        //自己新增的        
+        //自己新增的
+       
         public string[] Dishes_Contain_Food_Value { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

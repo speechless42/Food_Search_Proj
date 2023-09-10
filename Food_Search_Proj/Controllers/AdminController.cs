@@ -26,10 +26,10 @@ namespace Food_Search_Proj.Controllers
         //*新增類別區域
         public ActionResult CreateCategoriesFood()
         {
-            //if (Session["user"] == null)
-            //{
-            //    return RedirectToAction("Loss");
-            //}
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var COFID = 0;
             if ((from i in DB.Categories_Of_Food select i.Categories_Of_Food_ID).Any() == false)
@@ -61,10 +61,10 @@ namespace Food_Search_Proj.Controllers
         //*新增食材區域
         public ActionResult CreateFood()
         {
-            //if (Session["user"] == null)
-            //{
-            //    return RedirectToAction("Loss");
-            //}
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             //自動編號，判斷是否回傳空值，若不是空值就搜尋最大值+1。相反則回傳0
             var FDID = 0;
             if ((from i in DB.Food select i.Food_ID).Any() == false)
@@ -146,7 +146,7 @@ namespace Food_Search_Proj.Controllers
         {
             if (Session["user"] == null)
             {
-                return RedirectToAction("Loss");
+                return Redirect("~/Home/Index");
             }
             return View();
         }
@@ -177,7 +177,7 @@ namespace Food_Search_Proj.Controllers
         {
             if (Session["user"] == null)
             {
-                return RedirectToAction("Loss");
+                return Redirect("~/Home/Index");
             }
             //自動編號ID
             var DishID = 0;
@@ -252,8 +252,13 @@ namespace Food_Search_Proj.Controllers
         //顯示菜餚
         public ActionResult ShowDishes()
         {
+            //if (Session["user"] == null)
+            //{
+            //    return Redirect("~/Home/Index");
+            //}
+            
             var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
-
+            //給edit使用
             List<SelectListItem> DishesContainFoodsss = new List<SelectListItem>() { };
             DishesContainFoodsss.Add(new SelectListItem { Text = "請選擇食材", Value = "-1" });
 
@@ -263,24 +268,31 @@ namespace Food_Search_Proj.Controllers
             }
             Session["DishesContainFoodName"] = DishesContainFoodsss;
             return View(AllDishes);
-            
         }
         ///////////////
         //編輯菜餚
         public ActionResult EditDishes(int id)
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
             return View(dishes);
         }
         [HttpPost]
         public ActionResult EditDishes(Dishes dishes,HttpPostedFileBase image)
         {
+            Dishes Editdishe = DB.Dishes.Where(m => m.Dishes_ID == dishes.Dishes_ID).FirstOrDefault();
             if (image != null)
             {
                 dishes.Dishes_Photo = new byte[image.ContentLength];
                 image.InputStream.Read(dishes.Dishes_Photo, 0, image.ContentLength);
             }
-            Dishes Editdishe = DB.Dishes.Where(m => m.Dishes_ID == dishes.Dishes_ID).FirstOrDefault();
+            else
+            {
+                dishes.Dishes_Photo = Editdishe.Dishes_Photo;
+            }
             //Editdishe.Dishes_Name = dishes.Dishes_Name;
             //Editdishe.Dishes_Methods = dishes.Dishes_Methods;
             //Editdishe.Dishes_Remark = dishes.Dishes_Remark;
@@ -300,6 +312,10 @@ namespace Food_Search_Proj.Controllers
         //刪除菜餚
         public ActionResult DeleteDishes(int id)
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
             DB.Dishes.Remove(dishes);
             DB.SaveChanges();
@@ -309,6 +325,10 @@ namespace Food_Search_Proj.Controllers
         //建立套餐
         public ActionResult CreateCombo()
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             var ComboID = 0;
             if ((from i in DB.Combo select i.Combo_ID).Any() == false)
             {
@@ -362,6 +382,10 @@ namespace Food_Search_Proj.Controllers
         //顯示套餐
         public ActionResult ShowCombo()
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             var AllCombo = DB.Combo.OrderByDescending(m => m.Combo_ID).ToList();
 
             List<SelectListItem> SMIFName = new List<SelectListItem>() { };
@@ -379,6 +403,10 @@ namespace Food_Search_Proj.Controllers
         //編輯套餐
         public ActionResult EditCombo(int id)
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             Combo combo = DB.Combo.Where(m => m.Combo_ID == id).FirstOrDefault();
 
             return View(combo);
@@ -401,6 +429,10 @@ namespace Food_Search_Proj.Controllers
         //刪除套餐
         public ActionResult DeleteCombo(int id)
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             Combo combo = DB.Combo.Where(m => m.Combo_ID == id).FirstOrDefault();
             DB.Combo.Remove(combo);
             DB.SaveChanges();
@@ -410,6 +442,10 @@ namespace Food_Search_Proj.Controllers
         //列出新的回饋文章
         public ActionResult ShowFeedBackArticle()
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             var feedback_Article = DB.Feedback_Article.Where( m => m.Article_Review_Result == 0 ).OrderByDescending(m => m.Article_ID).ToList();
             return View(feedback_Article);
         }
@@ -417,6 +453,10 @@ namespace Food_Search_Proj.Controllers
         //列出新的未審核菜餚
         public ActionResult ShowNoResultDishes()
         {
+            if (Session["user"] == null)
+            {
+                return Redirect("~/Home/Index");
+            }
             var NoResultDishes = DB.Dishes.Where(m => m.Food_Review_Result == 0).OrderByDescending(m => m.Dishes_ID).ToList();
             return View(NoResultDishes);
         }

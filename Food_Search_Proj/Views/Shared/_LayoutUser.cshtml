@@ -37,9 +37,14 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+           
         </footer>
     </div>
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<style scoped>
+    body {
+        background-color: antiquewhite;
+    }
+</style>

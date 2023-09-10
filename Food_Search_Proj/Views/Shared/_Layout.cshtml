@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("顯示菜餚", "ShowDishes", "User", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("顯示菜餚", "HomeShowDishes", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("顯示套餐", "ShowCombo", "User", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("註冊", "User_Sign_Up", "User", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("登入", "User_Sign_In", "User", new { area = "" }, new { @class = "nav-link" })</li>
@@ -33,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            
         </footer>
     </div>
     <script>
@@ -46,3 +46,8 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<style scoped>
+    body {
+        background-color: antiquewhite;
+    }
+</style>

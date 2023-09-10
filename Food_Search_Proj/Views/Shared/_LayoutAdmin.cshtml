@@ -11,7 +11,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
-<body>
+<body style="background-color:antiquewhite">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
         <div class="container">
             @Html.ActionLink("線上食譜-管理員專區", "Index", "Admin", new { area = "" }, new { @class = "navbar-brand" })
@@ -21,7 +21,7 @@
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("產品列表", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    
 
 
                     <li class="nav-item dropdown adminddl">
@@ -30,7 +30,6 @@
                            aria-expanded="false">食材</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="~/Admin/CreateCategoriesFood">新增類別</a>
-                            <a class="dropdown-item" href="~/Admin/DishesOfFood">顯示食材</a>
                             <a class="dropdown-item" href="~/Admin/CreateFood">新增食材</a>
                         </div>
                     </li>
@@ -42,10 +41,7 @@
                            aria-expanded="false">菜餚</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="~/Admin/ShowDishes">顯示菜餚</a>
-                            <a class="dropdown-item" href="~/Admin/EditDishes">編輯菜餚</a>
                             <a class="dropdown-item" href="~/Admin/CreateDishes">新增菜餚</a>
-                            <a class="dropdown-item" href="~/Admin/EditDishesOfFood">編輯菜餚的食材</a>
-                            <a class="dropdown-item" href="~/Admin/DeleteDishes">刪除菜餚</a>
                         </div>
                     </li>
 
@@ -56,9 +52,6 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownId">
                             <a class="dropdown-item" href="~/Admin/ShowCombo">顯示套餐</a>
                             <a class="dropdown-item" href="~/Admin/CreateCombo">建立套餐</a>
-                            <a class="dropdown-item" href="~/Admin/EditCombo">編輯套餐</a>
-                            <a class="dropdown-item" href="~/Admin/EditComboDishes">編輯套餐的菜餚</a>
-                            <a class="dropdown-item" href="~/Admin/DeleteCombo">刪除套餐</a>
                         </div>
                     </li>
 
@@ -80,7 +73,8 @@
             <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
         </footer>
     </div>
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('.adminddl').hover(function () {
                 $(this).find('.dropdown-menu').toggleClass("show");
             });

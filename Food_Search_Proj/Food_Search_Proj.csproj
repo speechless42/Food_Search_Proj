@@ -218,13 +218,24 @@
     <Content Include="Content\Site.css" />
     <Content Include="img\about-img.jpg" />
     <Content Include="img\barts.jpg" />
+    <Content Include="img\boltneva-6.jpg" />
+    <Content Include="img\bronzini-2.jpg" />
     <Content Include="img\bruno.jpg" />
+    <Content Include="img\crew-5.jpg" />
+    <Content Include="img\icons\app_development.svg" />
+    <Content Include="img\icons\customer_services.svg" />
+    <Content Include="img\icons\data_analyst.svg" />
+    <Content Include="img\icons\graphics_design.svg" />
     <Content Include="img\leong.jpg" />
+    <Content Include="img\mclean-1.jpg" />
+    <Content Include="img\mukkath-3.jpg" />
+    <Content Include="img\pixabay-4.jpg" />
     <Content Include="img\pixabay.jpg" />
     <Content Include="img\polina.jpg" />
     <Content Include="img\rajesh-.jpg" />
     <Content Include="img\snapwire.jpg" />
     <Content Include="img\valeria.jpg" />
+    <Content Include="img\yente.jpg" />
     <Content Include="Models\FDModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>FDModel.Context.cs</LastGenOutput>
@@ -302,6 +313,7 @@
     <Content Include="Views\User\ChangeAccountDetail1.cshtml" />
     <Content Include="Views\User\ChangeAccountDetail2.cshtml" />
     <Content Include="Views\User\Pass.cshtml" />
+    <Content Include="Views\Home\HomeShowDishes.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
