@@ -97,7 +97,7 @@ namespace Food_Search_Proj.Controllers
             }
             Session.Clear();
             Session["user"] = ID;
-            return RedirectToAction("User_Sign_In");
+            return RedirectToAction("Index");
         }
 
         //顯示菜餚
@@ -115,47 +115,59 @@ namespace Food_Search_Proj.Controllers
         //收藏套餐
         public ActionResult CollectCombo(int id)
         {
-            var UCCID = 0;
-            if ((from i in DB.User_Collect_Combo select i.UCC_ID).Any() == false)
+            var UID = Session["user"].ToString();
+            if (DB.User_Collect_Combo.Where(m => m.Combo_ID == id && m.User_ID == UID).Any() == true)
             {
-                UCCID = 0;
+                return Content("<script language='javascript' type='text/javascript'>alert('你已收藏過');</script><meta http-equiv = \'refresh\' content = \'1; url = ../ShowCombo\' />");
             }
             else
             {
-                UCCID = (from i in DB.User_Collect_Combo select i.UCC_ID).Max();
-                UCCID += 1;
+                var UCCID = 0;
+                if ((from i in DB.User_Collect_Combo select i.UCC_ID).Any() == false)
+                {
+                    UCCID = 0;
+                }
+                else
+                {
+                    UCCID = (from i in DB.User_Collect_Combo select i.UCC_ID).Max();
+                    UCCID += 1;
+                }
+                User_Collect_Combo UCC = new User_Collect_Combo();
+                UCC.UCC_ID = UCCID;
+                UCC.User_ID = UID;
+                UCC.Combo_ID = id;
+                DB.User_Collect_Combo.Add(UCC);
+                DB.SaveChanges();
             }
-            User_Collect_Combo UCC  = new User_Collect_Combo();
-            UCC.Combo_ID = id;
-            UCC.User_ID = Session["user"].ToString();
-            UCC.UCC_ID = UCCID;
-            DB.User_Collect_Combo.Add(UCC);
-            DB.SaveChanges();
             return RedirectToAction("ShowCombo");
         }
         //收藏菜餚
         public ActionResult CollectDishes(int id)
         {
-            if (DB.Dishes.Where(m => m.Dishes_ID == id).Any() == true)
+            var UID = Session["user"].ToString();
+            if (DB.User_Collect_Dishes.Where(m => m.Dishes_ID == id && m.User_ID == UID).Any() == true)
             {
-                return Content("<script language='javascript' type='text/javascript'>alert('擬以收藏過');</script>");
-            }
-            var UCDID = 0;
-            if ((from i in DB.User_Collect_Dishes select i.UCD_ID).Any() == false)
-            {
-                UCDID = 0;
+                return Content("<script language='javascript' type='text/javascript'>alert('你已收藏過');</script><meta http-equiv = \'refresh\' content = \'1; url = ../ShowDishes\' />");
             }
             else
             {
-                UCDID = (from i in DB.User_Collect_Dishes select i.UCD_ID).Max();
-                UCDID += 1;
+                var UCDID = 0;
+                if ((from i in DB.User_Collect_Dishes select i.UCD_ID).Any() == false)
+                {
+                    UCDID = 0;
+                }
+                else
+                {
+                    UCDID = (from i in DB.User_Collect_Dishes select i.UCD_ID).Max();
+                    UCDID += 1;
+                }
+                User_Collect_Dishes UCD = new User_Collect_Dishes();
+                UCD.UCD_ID = UCDID;
+                UCD.User_ID = UID;
+                UCD.Dishes_ID = id;
+                DB.User_Collect_Dishes.Add(UCD);
+                DB.SaveChanges();
             }
-            User_Collect_Dishes UCD = new User_Collect_Dishes();
-            UCD.UCD_ID = UCDID;
-            UCD.User_ID = Session["user"].ToString();
-            UCD.Dishes_ID = id;
-            DB.User_Collect_Dishes.Add(UCD);
-            DB.SaveChanges();
             return RedirectToAction("ShowDishes");
         }
         //回饋文章
@@ -274,6 +286,12 @@ namespace Food_Search_Proj.Controllers
         public ActionResult Pass()
         {
             return View();
+        }
+        //詳細菜餚
+        public ActionResult DetailsDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            return View(dishes);
         }
     }
 

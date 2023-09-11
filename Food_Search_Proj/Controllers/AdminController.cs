@@ -218,7 +218,7 @@ namespace Food_Search_Proj.Controllers
             dishes.Food_Review_Date = DateTime.Now;
             DB.Dishes.Add(dishes);
             DB.SaveChanges();
-            return RedirectToAction("PASS");
+            return RedirectToAction("ShowDishes");
             }
             return RedirectToAction("Loss");
         }
@@ -350,7 +350,7 @@ namespace Food_Search_Proj.Controllers
         {
             DB.Combo.Add(combo);
             DB.SaveChanges();
-            return RedirectToAction("PASS");
+            return RedirectToAction("ShowCombo");
         }
         ///////////////
         //套餐的菜餚
@@ -462,7 +462,13 @@ namespace Food_Search_Proj.Controllers
         }
         ///////////////
         //審核未審核菜餚
-        public ActionResult EDishes() { return View(); }   
+        public ActionResult EDishes() { return View(); }
+        /// 管理者食譜頁面
+        public ActionResult DetailsDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            return View(dishes);
+        }
         
     }
 }

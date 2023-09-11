@@ -2,19 +2,15 @@
 
 @{
     Layout = "../Shared/_Layout.cshtml";
-    ViewBag.Title = "ShowDishes";
+    ViewBag.Title = " HomeShowDishes";
 }
-
-@*<div class="container-fluid  text-primary py-5 text-center wow fadeIn">
-        <h2>食譜料理</h2>
-    </div>*@
 
 <div class="page-section">
     <div class="container">
         <div class="row align-items-center" style="border: 4px gray dashed; padding: 6px; background-color: #fafafa; font-family: DFKai-sb">
             <div class="col-lg-3 py-2">
                 <div class="about-img">
-                    <img src="~/img/yente.jpg" width="200px">
+                    <img src="~/img/yente.jpg" width="200">
                 </div>
             </div>
             <div class="col-lg-9 py-2">
@@ -28,115 +24,45 @@
             </div>
         </div>
     </div>
-</div> <!-- .page-section -->
-@*<p style="text-align: left">
-        @Html.ActionLink("推薦菜餚", "RecommendDishes")
-    </p>*@
+</div>
 
-<table class="table">
-    @*<tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dishes_Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dishes_Methods)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dishes_Photo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dishes_Remark)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dishes_Recommend_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Food_Review_Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Food_Review_Result)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Manager.Manager_Password)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.User_Password)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dishes_Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dishes_Methods)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dishes_Photo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dishes_Remark)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Food_Review_Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Food_Review_Result)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.User_Password)
-                    </td>
-                    <td>
-                        @Html.ActionLink("收藏", "CollectDishes", new { id = item.Dishes_ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Dishes_ID }) |
-
-                    </td>
-                </tr>
-            }
-
-        </table>*@
-
-
-
-    @foreach (var item in Model)
-    {
-        <div class="page-section">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 py-2">
-                        <div class="about-img">
-                            <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="200px" />
-                        </div>
+@foreach (var item in Model)
+{
+    <div class="page-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 py-2">
+                    <div class="about-img">
+                        <img src="data:image/png;base64,@Convert.ToBase64String(item.Dishes_Photo)" width="200" />
                     </div>
-                    <div class="col-lg-7 py-2">
-                        <div>
-                            <h2 style="font-family:DFKai-sb">  @Html.DisplayFor(modelItem => item.Dishes_Name)</h2>
-                        </div>
-                        <div>
-                            @Html.DisplayFor(modelItem => item.Dishes_Methods)
-                        </div>
-                        <br>
-                        <div>
-                            <a class="btn btn-outline-secondary " style="color:dimgrey;font-weight: bold">
-                                @Html.DisplayNameFor(model => model.Dishes_Remark)
-                            </a>
-                            @Html.DisplayFor(modelItem => item.Dishes_Remark)
-                        </div>
+                </div>
+                <div class="col-lg-7 py-2">
+                    <div>
+                        <h2 style="font-family:DFKai-sb">  @Html.DisplayFor(modelItem => item.Dishes_Name)</h2>
+                    </div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.Dishes_Methods)
+                    </div>
+                    <br>
+                    <a style="font-weight: bold">食材:</a>
+                    @foreach (var items in item.Dishes_Contain_Food)
+                    {
+                        <a style="border: 1px gray dashed">@Html.DisplayFor(modelItem => items.Food.Food_Name)</a>
+                    }
+                    <div>
+                        <a class="btn btn-outline-secondary " style="color:dimgrey;font-weight: bold">
+                            @Html.DisplayNameFor(model => model.Dishes_Remark)
+                        </a>
+                        @Html.DisplayFor(modelItem => item.Dishes_Remark)
+                    </div>
+                    <div style="text-align: right" class="col-12 mt-3">
+                        @Html.ActionLink("詳細", "DetailsDishes", new { id = item.Dishes_ID })
                     </div>
                 </div>
             </div>
         </div>
-        <hr />
-    }
-</table>
     </div>
+    <hr />
+}
+
 

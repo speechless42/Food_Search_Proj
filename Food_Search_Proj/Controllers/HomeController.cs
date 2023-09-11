@@ -15,24 +15,15 @@ namespace Food_Search_Proj.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         public ActionResult HomeShowDishes()
         {
             var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
             return View(AllDishes);
+        }
+        public ActionResult DetailsDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            return View(dishes);
         }
     }
 }

@@ -5,9 +5,7 @@
     ViewBag.Title = "ShowDishes";
 }
 
-@*<div class="container-fluid  text-primary py-5 text-center wow fadeIn">
-        <h2>食譜料理</h2>
-    </div>*@
+
 
 <div class="page-section">
     <div class="container">
@@ -28,93 +26,13 @@
             </div>
         </div>
     </div>
-</div> <!-- .page-section -->
+</div>
 
 
 <p style="text-align: right">
     @Html.ActionLink("＋推薦菜餚", "RecommendDishes")
     @Html.ActionLink("回饋文章", "CreateArticle")
 </p>
-
-
-
-
-@*<div class="col-12 mt-3" style="text-align: right">
-        <a href="RecommendDishes" type="submit" class="btn btn-light" style="color:dimgrey"> + 推薦菜餚</a>
-        <a href="CreateArticle" type="submit" class="btn btn-light" style="color:dimgrey">回饋文章</a>
-    </div>*@
-
-@*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Dishes_Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dishes_Methods)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dishes_Photo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dishes_Remark)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dishes_Recommend_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Food_Review_Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Food_Review_Result)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manager.Manager_Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.User_Password)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dishes_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dishes_Methods)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dishes_Photo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dishes_Remark)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dishes_Recommend_Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Food_Review_Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Food_Review_Result)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manager.Manager_Password)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.User_Password)
-                </td>
-                <td>
-                    @Html.ActionLink("收藏", "CollectDishes", new { id = item.Dishes_ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Dishes_ID }) |
-
-                </td>
-            </tr>
-        }
-
-    </table>*@
-
 
 
 @foreach (var item in Model)
@@ -135,6 +53,11 @@
                         @Html.DisplayFor(modelItem => item.Dishes_Methods)
                     </div>
                     <br>
+                    <a style="font-weight: bold; font-family: DFKai-sb">食材:</a>
+                    @foreach (var items in item.Dishes_Contain_Food)
+                    {
+                        <a style="border: 1px gray dashed;font-family: DFKai-sb">@Html.DisplayFor(modelItem => items.Food.Food_Name)</a>
+                    }
                     <div>
                         <a class="btn btn-outline-secondary " style="color:dimgrey;font-weight: bold">
                             @Html.DisplayNameFor(model => model.Dishes_Remark)
@@ -142,12 +65,8 @@
                         @Html.DisplayFor(modelItem => item.Dishes_Remark)
                     </div>
                     <div style="text-align: right" class="col-12 mt-3">
-                        @*<a href="CollectDishes" type="submit" class="btn btn-light" style="color:dimgrey"> + 收藏食譜</a>
-                            <a href="Details" type="submit" class="btn btn-light" style="color:dimgrey"> ＊ 詳情</a>*@
                         @Html.ActionLink("收藏", "CollectDishes", new { id = item.Dishes_ID }) |
                         @Html.ActionLink("詳細", "DetailsDishes", new { id = item.Dishes_ID })
-
-
                     </div>
                 </div>
             </div>

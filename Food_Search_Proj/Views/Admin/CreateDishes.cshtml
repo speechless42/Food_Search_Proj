@@ -18,7 +18,7 @@
     });
 
 </script>
-<h2>CreateDishes</h2>
+<h2>新增菜餚</h2>
 
 <div id="app">
     @using (Html.BeginForm("CreateDishes", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -26,7 +26,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Dishes</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">

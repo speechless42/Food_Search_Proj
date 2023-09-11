@@ -4,7 +4,20 @@
     ViewBag.Title = "EditDishes";
 }
 
-<h2>EditDishes</h2>
+<script>
+    $(function () {
+        let count = 0;
+        $("#AddRow").click(function () {
+            count++;
+            $.get("/Admin/DishesOfFood", { count: count }, function (template) {
+                $("#AddDiv").append(template)
+            });
+        });
+    });
+
+</script>
+
+<h2>編輯菜餚</h2>
 
 @using (Html.BeginForm("EditDishes", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -24,6 +37,9 @@
             @Html.ValidationMessageFor(model => model.Dishes_Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div><input type="button" value="新增列" id="AddRow" /></div>
+    <div id="AddDiv"></div>
 
     @{
         foreach (var item in Model.Dishes_Contain_Food)

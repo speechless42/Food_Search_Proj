@@ -314,6 +314,9 @@
     <Content Include="Views\User\ChangeAccountDetail2.cshtml" />
     <Content Include="Views\User\Pass.cshtml" />
     <Content Include="Views\Home\HomeShowDishes.cshtml" />
+    <Content Include="Views\Admin\DetailsDishes.cshtml" />
+    <Content Include="Views\User\DetailsDishes.cshtml" />
+    <Content Include="Views\Home\DetailsDishes.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
