@@ -1,42 +1,41 @@
 ﻿@model Food_Search_Proj.Models.Set_Menu_Includes_Dishes
 @{
     string ID = Model.SMID_ID.ToString();
-    ViewBag.BeSelsectDishes = "BeSelsectFood" + ID;
-    ViewBag.SelsectDishes = "SelectFood" + ID;
+    ViewBag.BeSelectDishes = "BeSelectDishes" + ID;
+    ViewBag.SelectDishes = "SelectDishes" + ID;
+    ViewBag.BeChangeDishes = "BeChangeSelectDishes" + ID;
 }
 
 @using (Html.BeginCollectionItem("Set_Menu_Includes_Dishes"))
 {
-    <div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SMID_ID, "SMID_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SMID_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SMID_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="form-horizontal" style="border-style:double">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SMID_ID)
+
+        
 
         <div class="form-group">
+            <p id = @ViewBag.BeChangeDishes>預設為 @Model.Dishes.Dishes_Name</p>
             @Html.Label("菜餚選單號", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SMIFName", (IEnumerable<SelectListItem>)Session["SMIFName"], new { Class = "form-control", id = @ViewBag.BeSelsectDishes, Value = Model.Dishes_ID.ToString() })
+                @Html.DropDownList("SMIFNames", (IEnumerable<SelectListItem>)Session["SMIFNames"], new { Class = "form-control", id = @ViewBag.BeSelectDishes, Selected = Model.Dishes_ID.ToString() })
                 @*@Html.DropDownList("SMIFName", null, new { Class = "form-control", id = @ViewBag.BeSelsectDishes })*@
             </div>
         </div>
-
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.Dishes_ID, "菜餚編號", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Dishes_ID, "菜餚編號", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelsectDishes } })
-                @Html.ValidationMessageFor(model => model.Dishes_ID, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Dishes_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelectDishes } })
+                @*@Html.ValidationMessageFor(model => model.Dishes_ID, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Combo_ID, "套餐編號", htmlAttributes: new { @class = "control-label col-md-2" })
+            @*@Html.LabelFor(model => model.Combo_ID, "套餐編號", htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Combo_ID, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Combo_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.Combo_ID, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
@@ -50,10 +49,12 @@
 
 <script>
     $(function () {
-        $("#@ViewBag.BeSelsectDishes").change(function () {
+        $("#@ViewBag.BeSelectDishes").change(function () {
             console.log($(this).val());
-            ////$("#@ViewBag.SelsectDishes").text($(this).val())
-            $("#@ViewBag.SelsectDishes").val( Number($(this).val()) )
+            ////$("#@ViewBag.SelectDishes").text($(this).val())
+            $("#@ViewBag.SelectDishes").val(Number($(this).val()))
+            $("#@ViewBag.BeChangeDishes").text("已變更為" + String($("#@ViewBag.BeSelectDishes option:selected").text()))
+
         });
     });
 

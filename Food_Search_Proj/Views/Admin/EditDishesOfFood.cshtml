@@ -7,7 +7,7 @@
 @using (Html.BeginCollectionItem("Dishes_Contain_Food"))
 {
 
-    <div class="form-horizontal" style="border-style:double" id="app1">
+    <div class="form-horizontal" style="border-style:double">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.DCF_ID)
@@ -15,14 +15,14 @@
         <div class="form-group">
             @Html.Label("食材選單號", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DishesContainFoodName", (IEnumerable<SelectListItem>)Session["DishesContainFoodName"], new { Class = "form-control", id = @ViewBag.BeSelsectFood, Value = Model.Food_ID.ToString() })
+                @Html.DropDownList("DishesContainFoodNames", (IEnumerable<SelectListItem>)Session["DishesContainFoodNames"], new { Class = "form-control", id = @ViewBag.BeSelsectFood, Value = Model.Food_ID.ToString() })
                 @*@Html.ValidationMessageFor(model => model.DishesContainFoodName, "", new { @class = "text-danger" })*@
             </div>
         </div>
 
         @*<div class="form-group">
             <div class="col-md-10">*@
-                @Html.EditorFor(model => model.Food_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelectFood ,@type="hidden"} })
+                @Html.HiddenFor(model => model.Food_ID, new { htmlAttributes = new { @class = "form-control", id = @ViewBag.SelectFood ,@type="hidden"} })
                 @*@Html.ValidationMessageFor(model => model.Food_ID, "", new { @class = "text-danger" })
             </div>
         </div>*@
@@ -52,6 +52,7 @@
             $("#@ViewBag.SelectFood").val( Number($(this).val()) )
         });
     });
+
 </script>
 
 

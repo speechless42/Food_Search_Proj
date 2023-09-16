@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Food_Search_Proj.Models.Combo>
+
+@{
+    ViewBag.Title = "SearchCombo";
+}
+
+<h2>SearchCombo</h2>
+
+<form action="./SearchCombo" method="post">
+    <input type="text" name="ComboName" placeholder="請輸入食材名稱" />
+    <input type="submit" />
+</form>
+
+<hr />
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        @*<tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Combo_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Combo_Date)
+                </td>
+                <td>
+                    @Html.ActionLink("收藏", "CollectCombo", new { id = item.Combo_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Combo_ID }) |
+                </td>
+            </tr>*@
+
+        <div class="div-all">
+            <div class="row align-items-center">
+                <div class="div-Name">
+                    <h2 class="text-center wow fadeIn">
+                        @Html.DisplayFor(modelItem => item.Combo_Name)
+                    </h2>
+                </div>
+                <div class="div-Date">
+                    @Html.DisplayNameFor(model => model.Combo_Date) :
+                    @Html.DisplayFor(modelItem => item.Combo_Date)
+                </div>
+                <div class="col-12 mt-3" style="text-align: right">
+                    @Html.ActionLink("收藏", "CollectCombo", new { id = item.Combo_ID }) |
+                    @Html.ActionLink("詳細", "Details", new { id = item.Combo_ID })
+                </div>
+            </div>
+        </div>
+
+
+
+    }
+}

@@ -5,10 +5,24 @@
     ViewBag.Title = "EditCombo";
 }
 
+<script>
+    $(function () {
+        let count = 0;
+        $("#AddRow").click(function () {
+            count++;
+            $.get("/Admin/ComboDishes", { count: count }, function (template) {
+                $("#AddDiv").append(template)
+            });
+        });
+    });
+
+</script>
+
+
 <h2>EditCombo</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditCombo", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -25,25 +39,21 @@
             @Html.ValidationMessageFor(model => model.Combo_Name, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div><input type="button" value="新增列" id="AddRow" /></div>
+    <div id="AddDiv"></div>
+
     @{
-        foreach (var item in Model.Set_Menu_Includes_Dishes)
+        foreach (var items in Model.Set_Menu_Includes_Dishes)
         {
-            Html.RenderPartial("EditComboDishes", item);
+            Html.RenderPartial("EditComboDishes", items);
         }
     }
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Combo_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Combo_Date, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Combo_Date, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="更改" class="btn btn-default" />
         </div>
     </div>
 </div>

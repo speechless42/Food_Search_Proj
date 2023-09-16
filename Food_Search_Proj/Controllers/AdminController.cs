@@ -257,7 +257,8 @@ namespace Food_Search_Proj.Controllers
             //    return Redirect("~/Home/Index");
             //}
             
-            var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
+            //var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
+            var AllDishes = DB.Dishes.Where(m => m.Food_Review_Result == 2).ToList();
             //給edit使用
             List<SelectListItem> DishesContainFoodsss = new List<SelectListItem>() { };
             DishesContainFoodsss.Add(new SelectListItem { Text = "請選擇食材", Value = "-1" });
@@ -266,7 +267,7 @@ namespace Food_Search_Proj.Controllers
             {
                 DishesContainFoodsss.Add(new SelectListItem { Text = item.Food_ID.ToString() + "-" + item.Food_Name, Value = item.Food_ID.ToString() });
             }
-            Session["DishesContainFoodName"] = DishesContainFoodsss;
+            Session["DishesContainFoodNames"] = DishesContainFoodsss;
             return View(AllDishes);
         }
         ///////////////
@@ -293,10 +294,6 @@ namespace Food_Search_Proj.Controllers
             {
                 dishes.Dishes_Photo = Editdishe.Dishes_Photo;
             }
-            //Editdishe.Dishes_Name = dishes.Dishes_Name;
-            //Editdishe.Dishes_Methods = dishes.Dishes_Methods;
-            //Editdishe.Dishes_Remark = dishes.Dishes_Remark;
-            //Editdishe.Dishes_Contain_Food = dishes.Dishes_Contain_Food;
             DB.Dishes.Remove(Editdishe);
             DB.Dishes.Add(dishes);
             DB.SaveChanges();
@@ -377,6 +374,8 @@ namespace Food_Search_Proj.Controllers
             ViewBag.SelsectDishes = "SelectFood" + count.ToString();
             ViewBag.BeSelsectDishes = "BeSelectFood" + count.ToString();
             return PartialView("ComboDishes");
+
+        
         }
         ///////////////
         //顯示套餐
@@ -386,17 +385,17 @@ namespace Food_Search_Proj.Controllers
             {
                 return Redirect("~/Home/Index");
             }
-            var AllCombo = DB.Combo.OrderByDescending(m => m.Combo_ID).ToList();
+            var AllCombo = DB.Combo.OrderByDescending(m => m.Combo_ID).ToList(); 
+            List<SelectListItem> SMIFNames = new List<SelectListItem>() { };
+            SMIFNames.Add(new SelectListItem { Text = "請選擇菜餚", Value = "-1" ,Selected = false});
 
-            List<SelectListItem> SMIFName = new List<SelectListItem>() { };
-            SMIFName.Add(new SelectListItem { Text = "請選擇菜餚", Value = "-1" });
-
-            foreach (var item in DB.Dishes)
+            foreach (var items in DB.Dishes)
             {
-                SMIFName.Add(new SelectListItem { Text = item.Dishes_ID.ToString() + "-" + item.Dishes_Name, Value = item.Dishes_ID.ToString() });
+                SMIFNames.Add(new SelectListItem { Text = items.Dishes_ID.ToString() + "-" + items.Dishes_Name, Value = items.Dishes_ID.ToString() });
             }
+            
 
-            Session["SMIFName"] = SMIFName;
+            Session["SMIFNames"] = SMIFNames;
             return View(AllCombo);
         }
         ///////////////
@@ -415,6 +414,7 @@ namespace Food_Search_Proj.Controllers
         public ActionResult EditCombo(Combo combo)
         {
             Combo EditCombo = DB.Combo.Where(m => m.Combo_ID == combo.Combo_ID).FirstOrDefault();
+            combo.Combo_Date = EditCombo.Combo_Date;
             DB.Combo.Remove(EditCombo);
             DB.Combo.Add(combo);
             DB.SaveChanges();
@@ -460,15 +460,55 @@ namespace Food_Search_Proj.Controllers
             var NoResultDishes = DB.Dishes.Where(m => m.Food_Review_Result == 0).OrderByDescending(m => m.Dishes_ID).ToList();
             return View(NoResultDishes);
         }
-        ///////////////
-        //審核未審核菜餚
-        public ActionResult EDishes() { return View(); }
-        /// 管理者食譜頁面
+        /// 管理者詳細食譜頁面
         public ActionResult DetailsDishes(int id)
         {
             Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
             return View(dishes);
         }
-        
+        //未審核菜餚詳細頁面
+        public ActionResult DetailNoResultDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            return View(dishes);
+        }
+        //菜餚審核通過
+        public ActionResult PassDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            dishes.Food_Review_Result = 2;
+            DB.SaveChanges();
+            return RedirectToAction("ShowNoResultDishes");
+        }
+        //菜餚審核沒通過
+        public ActionResult NoPassDishes(int id)
+        {
+            Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
+            dishes.Food_Review_Result = 1;
+            DB.SaveChanges();
+            return RedirectToAction("ShowNoResultDishes");
+        }
+        //詳細回饋文章頁面
+        public ActionResult DetailFBArticle(int id)
+        {
+            Feedback_Article feedback_Article = DB.Feedback_Article.Where(m => m.Article_ID == id).FirstOrDefault();
+            return View(feedback_Article);
+        }
+        //回饋文章審核通過
+        public ActionResult PassFBArticle(int id)
+        {
+            Feedback_Article feedback_Article = DB.Feedback_Article.Where(m => m.Article_ID == id).FirstOrDefault();
+            feedback_Article.Article_Review_Result = 2;
+            DB.SaveChanges();
+            return RedirectToAction("ShowFeedBackArticle");
+        }
+        //回饋文章審核沒通過
+        public ActionResult NoPassFBArticle(int id)
+        {
+            Feedback_Article feedback_Article = DB.Feedback_Article.Where(m => m.Article_ID == id).FirstOrDefault();
+            feedback_Article.Article_Review_Result = 1;
+            DB.SaveChanges();
+            return RedirectToAction("ShowFeedBackArticle");
+        }
     }
 }

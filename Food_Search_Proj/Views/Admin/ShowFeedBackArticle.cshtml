@@ -5,7 +5,7 @@
     ViewBag.Title = "ShowFeedBackArticle";
 }
 
-<h2>ShowFeedBackArticle</h2>
+<h2>回饋文章</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -30,7 +30,7 @@
             @Html.DisplayFor(modelItem => item.Article_Review_Result)
         </td>
         <td>
-            @Html.ActionLink("詳細", "Edit", new { id=item.Article_ID }) |
+            @Html.ActionLink("詳細", "DetailFBArticle", new { id=item.Article_ID }) |
 
         </td>
     </tr>

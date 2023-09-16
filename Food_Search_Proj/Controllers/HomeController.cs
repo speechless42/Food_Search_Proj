@@ -17,13 +17,35 @@ namespace Food_Search_Proj.Controllers
         }
         public ActionResult HomeShowDishes()
         {
-            var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
+            var AllDishes = DB.Dishes.Where(m => m.Food_Review_Result == 2).ToList();
             return View(AllDishes);
         }
         public ActionResult DetailsDishes(int id)
         {
             Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
             return View(dishes);
+        }
+        //搜尋菜餚名稱
+        public ActionResult SearchDishes()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchDishes(string DishesName)
+        {
+            var Dishes = DB.Dishes.Where( m => m.Dishes_Name.Contains(DishesName));
+            return View(Dishes);
+        }
+        //搜尋套餐名稱
+        public ActionResult SearchCombo()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchCombo(string ComboName)
+        {
+            var Combo = DB.Combo.Where(m => m.Combo_Name.Contains(ComboName));
+            return View(Combo);
         }
     }
 }

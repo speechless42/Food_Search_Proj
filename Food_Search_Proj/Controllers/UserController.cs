@@ -103,7 +103,7 @@ namespace Food_Search_Proj.Controllers
         //顯示菜餚
         public ActionResult ShowDishes()
         {
-            var AllDishes = DB.Dishes.OrderByDescending(m => m.Dishes_ID).ToList();
+            var AllDishes = DB.Dishes.Where(m => m.Food_Review_Result == 2).ToList();
             return View(AllDishes);
         }
         //顯示套餐
@@ -292,6 +292,30 @@ namespace Food_Search_Proj.Controllers
         {
             Dishes dishes = DB.Dishes.Where(m => m.Dishes_ID == id).FirstOrDefault();
             return View(dishes);
+        }
+
+        //以收藏菜餚顯示
+        public ActionResult ShowCollectDishes()
+        {
+            string userId = Session["user"].ToString();
+            var CollectDishesID = (from dishes in DB.User_Collect_Dishes
+                    where dishes.User_ID == userId
+                    select dishes.Dishes).ToList();
+
+            
+            return View(CollectDishesID);
+        }
+
+        //以收藏套餐顯示
+        public ActionResult ShowCollectCombo()
+        {
+            string userId = Session["user"].ToString();
+            var CollectComboID = (from combo in DB.User_Collect_Combo
+                                   where combo.User_ID == userId
+                                   select combo.Combo).ToList();
+
+
+            return View(CollectComboID);
         }
     }
 

@@ -1,0 +1,74 @@
+﻿@model Food_Search_Proj.Models.Feedback_Article
+
+@{
+    ViewBag.Title = "DetailFBArticle";
+}
+
+<h2>DetailFBArticle</h2>
+
+<div>
+    <h4>Feedback_Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Article_Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article_Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article_Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article_Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article_Review_Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article_Review_Result)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article_Photo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article_Photo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Manager.Manager_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Manager.Manager_Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.User_Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.User_Password)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("審核通過", "PassFBArticle", new { id = Model.Article_ID }) |
+    @Html.ActionLink("審核沒通過", "NoPassFBArticle", new { id = Model.Article_ID })
+</p>

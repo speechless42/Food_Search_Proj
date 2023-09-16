@@ -317,6 +317,12 @@
     <Content Include="Views\Admin\DetailsDishes.cshtml" />
     <Content Include="Views\User\DetailsDishes.cshtml" />
     <Content Include="Views\Home\DetailsDishes.cshtml" />
+    <Content Include="Views\Admin\DetailNoResultDishes.cshtml" />
+    <Content Include="Views\Admin\DetailFBArticle.cshtml" />
+    <Content Include="Views\User\ShowCollectDishes.cshtml" />
+    <Content Include="Views\User\ShowCollectCombo.cshtml" />
+    <Content Include="Views\Home\SearchDishes.cshtml" />
+    <Content Include="Views\Home\SearchCombo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
