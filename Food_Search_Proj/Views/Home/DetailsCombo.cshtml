@@ -1,0 +1,43 @@
+﻿@model Food_Search_Proj.Models.Combo
+
+@{
+    ViewBag.Title = "DetailsCombo";
+}
+
+<h2>DetailsCombo</h2>
+
+<div>
+    <h4>Combo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Combo_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Combo_Name)
+        </dd>
+        <dt>
+            <label>菜餚：</label>
+        </dt>
+        
+            @foreach (var data in Model.Set_Menu_Includes_Dishes)
+            {   <dd>
+                 @data.Dishes.Dishes_Name
+                </dd>
+            }
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Combo_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Combo_Date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Combo_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

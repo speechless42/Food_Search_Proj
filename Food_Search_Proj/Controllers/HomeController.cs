@@ -1,6 +1,7 @@
 ﻿using Food_Search_Proj.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,6 +47,18 @@ namespace Food_Search_Proj.Controllers
         {
             var Combo = DB.Combo.Where(m => m.Combo_Name.Contains(ComboName));
             return View(Combo);
+        }
+        //顯示套餐
+        public ActionResult HomeShowCombo()
+        {
+            var AllCombo = DB.Combo.OrderByDescending(m => m.Combo_ID).ToList();
+            return View(AllCombo);
+        }
+        //顯示套餐細節
+        public ActionResult DetailsCombo(int id)
+        {
+            Combo combo = DB.Combo.Where(m => m.Combo_ID == id).FirstOrDefault();
+            return View(combo);
         }
     }
 }

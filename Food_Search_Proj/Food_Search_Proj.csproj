@@ -323,6 +323,8 @@
     <Content Include="Views\User\ShowCollectCombo.cshtml" />
     <Content Include="Views\Home\SearchDishes.cshtml" />
     <Content Include="Views\Home\SearchCombo.cshtml" />
+    <Content Include="Views\Home\HomeShowCombo.cshtml" />
+    <Content Include="Views\Home\DetailsCombo.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
