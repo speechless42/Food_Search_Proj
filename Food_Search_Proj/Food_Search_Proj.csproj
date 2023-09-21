@@ -325,6 +325,7 @@
     <Content Include="Views\Home\SearchCombo.cshtml" />
     <Content Include="Views\Home\HomeShowCombo.cshtml" />
     <Content Include="Views\Home\DetailsCombo.cshtml" />
+    <Content Include="Views\Home\SearchByFood.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

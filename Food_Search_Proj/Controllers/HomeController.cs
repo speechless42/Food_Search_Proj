@@ -60,5 +60,28 @@ namespace Food_Search_Proj.Controllers
             Combo combo = DB.Combo.Where(m => m.Combo_ID == id).FirstOrDefault();
             return View(combo);
         }
+        //用食材查詢菜餚
+        public ActionResult SearchByFood()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchByFood(string AllFood)
+        {
+            string[] SeperateFood = AllFood.Split(',');
+            int[] SeperateFoodId = new int[SeperateFood.Length];
+            for(var i =0;i<SeperateFoodId.Length;i++)
+            {
+                string FoodNAme = SeperateFood[i];
+                SeperateFoodId[i] = (from Name in DB.Food
+                                     where FoodNAme == Name.Food_Name
+                                     select Name.Food_ID).FirstOrDefault(); ;
+            }
+            var result = from i in DB.Dishes_Contain_Food
+                         where SeperateFoodId.Contains(i.Food_ID)
+                         select i.Dishes;
+              
+            return View(result);
+        }
     }
 }
