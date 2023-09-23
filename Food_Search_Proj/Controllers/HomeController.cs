@@ -75,13 +75,41 @@ namespace Food_Search_Proj.Controllers
                 string FoodNAme = SeperateFood[i];
                 SeperateFoodId[i] = (from Name in DB.Food
                                      where FoodNAme == Name.Food_Name
-                                     select Name.Food_ID).FirstOrDefault(); ;
+                                     select Name.Food_ID).FirstOrDefault();
             }
-            var result = from i in DB.Dishes_Contain_Food
+            //將有的菜餚全部顯示(可能重複)
+            var result = (from i in DB.Dishes_Contain_Food
                          where SeperateFoodId.Contains(i.Food_ID)
-                         select i.Dishes;
-              
-            return View(result);
+                         select i.Dishes).ToList();
+            //去除重複
+            var Show_results = result.Distinct().ToList();
+            //計算重複次數，若重複次數最大代表吻合數最多
+            var Count_results = result.GroupBy(m => m.Dishes_ID)
+                .Where(w => w.Count() > 1)
+                .Select(y => new { DishesID = y.Key , Count = y.Count() })
+                .OrderByDescending(y => y.Count).ToList();
+            //將重複數最多的網上排
+            if(Count_results.Count() > 0) { 
+            var temp = 0;
+                for(int i= 0; i < Count_results.Count();i++)
+                {
+                    for (int j = 0; j < Show_results.Count(); j++)
+                    {
+                        if (Count_results[i].DishesID == Show_results[j].Dishes_ID)
+                    {
+                        Show_results.Insert(temp, Show_results[j]);
+                        Show_results.RemoveAt(j+1);
+                        temp++;
+                        break;
+                    }
+                        
+                    }
+                
+                }
+            }
+            //
+            ViewBag.results = Count_results;
+            return View(Show_results);
         }
     }
 }
